@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProdottoBean implements Serializable{
 
@@ -12,9 +14,10 @@ public class ProdottoBean implements Serializable{
 	private double prezzo;
 	private boolean disponibile;
 	private boolean testoPersonalizzabile;
+	private List<ImmagineBean> immagini;
 	
 	public ProdottoBean() {
-		
+		immagini = new ArrayList<ImmagineBean>();
 	}
 
 	public int getId() {
@@ -63,6 +66,18 @@ public class ProdottoBean implements Serializable{
 
 	public void setTestoPersonalizzabile(boolean testoPersonalizzabile) {
 		this.testoPersonalizzabile = testoPersonalizzabile;
+	}
+
+	public List<ImmagineBean> getImmagini() {
+		return immagini;
+	}
+
+	public void setImmagini(List<ImmagineBean> immagini) {
+		this.immagini = immagini;
+	}
+	
+	public void addImmagine(ImmagineBean immagine) {
+		immagini.add(immagine);
 	}
 	
 }
