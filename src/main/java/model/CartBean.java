@@ -24,12 +24,7 @@ public class CartBean implements Serializable {
 
 	public void addProduct(ComposizioneOrdineBean prodotto) {
 		for (ComposizioneOrdineBean p : prodotti) {
-			boolean stessoId = p.getIdProdotto() == prodotto.getIdProdotto();
-			boolean stessoColore = (p.getColoreScelto() != null && p.getColoreScelto().equals(prodotto.getColoreScelto()));
-			boolean stessoTesto = (p.getTestoPersonalizzato() == null && prodotto.getTestoPersonalizzato() == null) || 
-					              (p.getTestoPersonalizzato() != null && p.getTestoPersonalizzato().equals(prodotto.getTestoPersonalizzato()));
-			
-			if(stessoId && stessoColore && stessoTesto) {
+			if(isEqual(p, prodotto)) {
 				p.setQuantita(p.getQuantita()+prodotto.getQuantita());
 				return;
 			}
@@ -40,12 +35,7 @@ public class CartBean implements Serializable {
 	
 	public void increaseQuantity(ComposizioneOrdineBean prodotto) {
 		for (ComposizioneOrdineBean p : prodotti) {
-			boolean stessoId = p.getIdProdotto() == prodotto.getIdProdotto();
-			boolean stessoColore = (p.getColoreScelto() != null && p.getColoreScelto().equals(prodotto.getColoreScelto()));
-			boolean stessoTesto = (p.getTestoPersonalizzato() == null && prodotto.getTestoPersonalizzato() == null) || 
-					              (p.getTestoPersonalizzato() != null && p.getTestoPersonalizzato().equals(prodotto.getTestoPersonalizzato()));
-			
-			if(stessoId && stessoColore && stessoTesto) {
+			if(isEqual(p, prodotto)) {
 				p.setQuantita(p.getQuantita()+1);
 				return;
 			}
@@ -53,17 +43,17 @@ public class CartBean implements Serializable {
 	}
 	
 	public void deleteProduct(ComposizioneOrdineBean prodotto) {
-		prodotti.remove(prodotto);
+		for (ComposizioneOrdineBean p : prodotti) {
+			if(isEqual(p, prodotto)) {
+				prodotti.remove(p);
+				return;
+			}
+		}
 	}
 	
 	public void decreaseQuantity(ComposizioneOrdineBean prodotto) {
 		for (ComposizioneOrdineBean p : prodotti) {
-			boolean stessoId = p.getIdProdotto() == prodotto.getIdProdotto();
-			boolean stessoColore = (p.getColoreScelto() != null && p.getColoreScelto().equals(prodotto.getColoreScelto()));
-			boolean stessoTesto = (p.getTestoPersonalizzato() == null && prodotto.getTestoPersonalizzato() == null) || 
-					              (p.getTestoPersonalizzato() != null && p.getTestoPersonalizzato().equals(prodotto.getTestoPersonalizzato()));
-			
-			if(stessoId && stessoColore && stessoTesto) {
+			if(isEqual(p, prodotto)) {
 				p.setQuantita(p.getQuantita()-1);
 				if(p.getQuantita() <= 0) {
 					prodotti.remove(p);
@@ -84,6 +74,15 @@ public class CartBean implements Serializable {
 	
 	public void clearCart() {
 		prodotti.clear();
+	}
+	
+	private boolean isEqual(ComposizioneOrdineBean p1, ComposizioneOrdineBean p2) {
+		boolean stessoId = p1.getIdProdotto() == p2.getIdProdotto();
+		boolean stessoColore = (p1.getColoreScelto() != null && p1.getColoreScelto().equals(p2.getColoreScelto()));
+		boolean stessoTesto = (p1.getTestoPersonalizzato() == null && p2.getTestoPersonalizzato() == null) || 
+				              (p1.getTestoPersonalizzato() != null && p1.getTestoPersonalizzato().equals(p2.getTestoPersonalizzato()));
+		
+		return (stessoId && stessoColore && stessoTesto);
 	}
 
 }
