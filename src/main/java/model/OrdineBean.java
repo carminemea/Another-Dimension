@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 public class OrdineBean implements Serializable{
 
@@ -12,6 +13,7 @@ public class OrdineBean implements Serializable{
 	private double totale;
 	private String indirizzo;
 	private int idUtente;
+	private List<ComposizioneOrdineBean> composizioni;
 	
 	public OrdineBean() {
 		
@@ -57,4 +59,15 @@ public class OrdineBean implements Serializable{
 		this.idUtente = idUtente;
 	}
 	
+	public List<ComposizioneOrdineBean> getComposizioni() {
+	    return composizioni;
+	}
+
+	public void setComposizioni(List<ComposizioneOrdineBean> composizioni) {
+	    this.composizioni = composizioni;
+	}
+
+	public void addComposizione(ComposizioneOrdineBean composizione) {
+	    this.composizioni.add(composizione);
+	}
 }
