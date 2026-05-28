@@ -14,5 +14,9 @@
 		<input type="submit" value="Accedi">
 	</form>
 	Non hai un account? <a href="<%=request.getContextPath()%>/AuthControl?action=redirectRegister">Registrati</a>
+	<% String error = (String) request.getAttribute("error"); 
+   	if(error != null) { %>
+    <p style="color: red;"><%= error %></p>
+	<% } %>
 </body>
 </html>
