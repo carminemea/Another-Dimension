@@ -65,7 +65,8 @@ public class AuthControl extends HttpServlet {
 				login(request, response);
 			} else if (action.equalsIgnoreCase("register")) {
 				register(request, response);
-			}
+			} else if(action.equalsIgnoreCase("logout"))
+				logout(request, response);
 		}
 	}
 	
@@ -86,6 +87,7 @@ public class AuthControl extends HttpServlet {
 		if (utente != null) {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("role", utente.getRuolo());
+			session.setAttribute("utente", utente);
 			
 			response.sendRedirect(request.getContextPath() + "/Home");
 		} else {
@@ -112,4 +114,8 @@ public class AuthControl extends HttpServlet {
 		response.sendRedirect(request.getContextPath() + "/AuthControl?action=redirectLogin");
 	}
 
+	private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath() + "/Home");
+	}
 }
