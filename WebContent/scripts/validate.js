@@ -1,8 +1,7 @@
-let count = 1;
 const nameOrLastnameErrorMessage = "Questo campo deve essere composto da solo lettere";
 const emailErrorMessage = "L'email dovrebbe essere di questo tipo: username@domain.ext";
-const emptyFieldErrorMessage = "Questo campo non può essere vuoto"
-const passwordErrorMessage = "La password deve contenere..."
+const emptyFieldErrorMessage = "Questo campo non può essere vuoto";
+const passwordErrorMessage = "La password deve contenere almeno 8 caratteri";
 
 function validateFormElem(formElem, span, errorMessage) {
 	if(formElem.checkValidity()){
@@ -38,9 +37,10 @@ function validate() {
 	if (!validateFormElem(form.email, spanEmail, emailErrorMessage)){
 		valid = false;
 	}
-	let spanPassword = document.getElementById("errorEmail");
-		if (!validateFormElem(form.password, spanPassword, passwordErrorMessage)){
-			valid = false;
-		}
+	let spanPassword = document.getElementById("errorPassword");
+	if (!validateFormElem(form.password, spanPassword, passwordErrorMessage)){
+		valid = false;
+	}
+		
 	return valid;
 }

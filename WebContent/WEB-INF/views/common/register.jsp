@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Registrati</title>
-<script type="text/javascript" src="scripts/validate.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/validate.js"></script>
 </head>
 <body>
 	<form action="AuthControl" method="post" class="loginForm" id="regForm" onsubmit="return validate()">
@@ -30,11 +30,12 @@
 		</div>
 		<div>
 			<label for="password"> Password:</label>
-			<input type="password" name="password" id="password" required 
-				onchange="validateFormElem(this, document.getElementById('errorPassword'), PasswordErrorMessage)">
+			<input type="password" name="password" id="password" required pattern=".{8,}"
+				onchange="validateFormElem(this, document.getElementById('errorPassword'), passwordErrorMessage)">
 			<span id="errorPassword"></span>
 		</div>
-		<input type="submit" value="Registrati" onclick="return validate()">
+		
+		<input type="submit" value="Registrati">
 	</form>
 	Hai già un account? <a href="<%=request.getContextPath()%>/AuthControl?action=redirectLogin">Accedi</a>
 	

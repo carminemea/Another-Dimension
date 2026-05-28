@@ -5,18 +5,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Accedi</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/validate.js"></script>
 </head>
 <body>
-	<form action="AuthControl" method="post" class="loginForm">
+		<form action="AuthControl" method="post" class="loginForm" id="loginForm" onsubmit="return validate()">
 		<input type="hidden" name="action" value="login">
-		<label for="email"> Email:<input type="text" name="email" id="email" required></label>
-		<label for="password"> Password:<input type="password" name="password" id="password" required></label>
+		<div>
+			<label for="email">Email:</label>
+			<input type="email" name="email" id="email" required 
+				onchange="validateFormElem(this, document.getElementById('errorEmail'), emailErrorMessage)">
+			<span id="errorEmail"></span>
+		</div>
+		<div>
+			<label for="password"> Password:</label>
+			<input type="password" name="password" id="password" required>
+		</div>
 		<input type="submit" value="Accedi">
 	</form>
 	Non hai un account? <a href="<%=request.getContextPath()%>/AuthControl?action=redirectRegister">Registrati</a>
-	<% String error = (String) request.getAttribute("error"); 
-   	if(error != null) { %>
-    <p style="color: red;"><%= error %></p>
-	<% } %>
+	<p style="color: red;">${error}</p>
 </body>
 </html>
