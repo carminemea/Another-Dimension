@@ -44,6 +44,7 @@ public class AuthControl extends HttpServlet {
 		try {
 			processAction(request, response);
 		} catch (ServletException | SQLException e) {
+			
 			e.printStackTrace();
 			// response.sendRedirect(request.getContextPath() + "/common/error.jsp");
 		} 
@@ -93,7 +94,7 @@ public class AuthControl extends HttpServlet {
 		}
 	}
 
-	private void register(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void register(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		UtenteBean utente = new UtenteBean();
 		utente.setNome(request.getParameter("nome"));
 		utente.setCognome(request.getParameter("cognome"));
@@ -101,7 +102,12 @@ public class AuthControl extends HttpServlet {
 		utente.setPassword(request.getParameter("password"));
 		utente.setRuolo("user");
 		
-		utenteDao.doSave(utente);
+		try {
+			utenteDao.doSave(utente);
+		} catch (SQLException e) {
+			request.setAttribute("error", "Errore durante la registrazione! Potrebbe essistere un account già associato a quest'email.");
+			e.printStackTrace();
+		}
 		
 		response.sendRedirect(request.getContextPath() + "/AuthControl?action=redirectLogin");
 	}
