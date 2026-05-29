@@ -1,28 +1,48 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
-<meta charset="UTF-8">
-<title>Accedi</title>
-<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/validate.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Accedi - Another Dimension</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/style.css">
+    <script type="text/javascript" src="<%=request.getContextPath()%>/scripts/validate.js"></script>
 </head>
 <body>
-		<form action="AuthControl" method="post" class="loginForm" id="loginForm" onsubmit="return validate()">
-		<input type="hidden" name="action" value="login">
-		<div>
-			<label for="email">Email:</label>
-			<input type="email" name="email" id="email" required 
-				onchange="validateFormElem(this, document.getElementById('errorEmail'), emailErrorMessage)">
-			<span id="errorEmail"></span>
-		</div>
-		<div>
-			<label for="password"> Password:</label>
-			<input type="password" name="password" id="password" required>
-		</div>
-		<input type="submit" value="Accedi">
-	</form>
-	Non hai un account? <a href="<%=request.getContextPath()%>/AuthControl?action=redirectRegister">Registrati</a>
-	<p style="color: red;">${error}</p>
+
+    <nav>
+        <a href="<%=request.getContextPath()%>/Home" class="nav-link">HOME</a>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <h2>Accedi</h2>
+            
+            <form action="AuthControl" method="post" id="loginForm" onsubmit="return validate()">
+                <input type="hidden" name="action" value="login">
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" class="input-field" required 
+                           onchange="validateFormElem(this, document.getElementById('errorEmail'), emailErrorMessage)">
+                    <span id="errorEmail" class="error-msg"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" class="input-field" required>
+                </div>
+                
+                <input type="submit" value="Accedi" class="btn">
+            </form>
+            
+            <p class="text-center" style="color: red;">${error}</p>
+            
+            <p class="text-center">
+                Non hai un account? <a href="<%=request.getContextPath()%>/AuthControl?action=redirectRegister" class="text-link">Registrati</a>
+            </p>
+        </div>
+    </div>
+
 </body>
 </html>
