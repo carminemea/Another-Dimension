@@ -41,6 +41,12 @@ function validate() {
 	if (!validateFormElem(form.password, spanPassword, passwordErrorMessage)){
 		valid = false;
 	}
+	
+	if(document.getElementById("admin").checked) {
+		let spanMasterPassword = document.getElementById("errorMasterPassword");
+		if(!validateFormElem(form.masterPassword, spanMasterPassword, passwordErrorMessage))
+			valid = false;
+	}
 		
 	return valid;
 }

@@ -96,13 +96,24 @@ public class AuthControl extends HttpServlet {
 		}
 	}
 
-	private void register(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void register(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		UtenteBean utente = new UtenteBean();
 		utente.setNome(request.getParameter("nome"));
 		utente.setCognome(request.getParameter("cognome"));
 		utente.setEmail(request.getParameter("email"));
 		utente.setPassword(request.getParameter("password"));
-		utente.setRuolo("user");
+		
+		if("admin".equals(request.getParameter("admin"))) {
+			if("passwordSegreta".equals(request.getParameter("masterPassword")))
+				utente.setRuolo("admin");
+			else {
+				request.setAttribute("error", "Master Password errata!");
+				request.getRequestDispatcher("/WEB-INF/views/common/register.jsp").forward(request, response);
+			}
+		}
+		else
+			utente.setRuolo("user");
+		
 		
 		try {
 			utenteDao.doSave(utente);

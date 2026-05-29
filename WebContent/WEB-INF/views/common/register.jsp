@@ -7,6 +7,7 @@
     <title>Registrati - Another Dimension</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/style.css">
     <script type="text/javascript" src="<%=request.getContextPath()%>/scripts/validate.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/scripts/adminRegistration.js"></script>
 </head>
 <body>
 
@@ -18,7 +19,7 @@
         <div class="card">
             <h2>Registrati</h2>
             
-            <form action="AuthControl" method="post" id="regForm" onsubmit="return validate()">
+            <form action="AuthControl" method="post" id="regForm" onsubmit="return validate()" novalidate>
                 <input type="hidden" name="action" value="register">
                 
                 <div class="form-group">
@@ -47,6 +48,18 @@
                     <input type="password" name="password" id="password" class="input-field" required pattern=".{8,}"
                            onchange="validateFormElem(this, document.getElementById('errorPassword'), passwordErrorMessage)">
                     <span id="errorPassword" class="error-msg"></span>
+                </div>
+                
+                <div class="form-group">
+                	<label for="admin">Admin:</label>
+                	<input type="checkbox" name="admin" id="admin" onchange="insertMasterPassword(this)">
+                </div>
+                
+                <div class="form-group" id="masterPasswordGroup" style="display: none;">
+                    <label for="masterPassword">Master Password:</label>
+                    <input type="password" name="masterPassword" id="masterPassword" class="input-field"
+                    onchange="validateFormElem(this, document.getElementById('errorMasterPassword'), passwordErrorMessage)">
+                    <span id="errorMasterPassword" class="error-msg"></span>
                 </div>
                 
                 <input type="submit" value="Registrati" class="btn">
