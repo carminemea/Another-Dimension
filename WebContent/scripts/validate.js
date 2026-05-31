@@ -50,3 +50,46 @@ function validate() {
 		
 	return valid;
 }
+
+/*Sezione per MasterPassword*/
+
+function insertMasterPassword(elem) {
+	
+	if(elem.checked) {
+		let container = document.getElementById("regForm");
+		let div = document.createElement("div");
+		div.id = "masterPasswordDiv";
+		div.classList.add("form-group");
+		
+		let label = document.createElement("label");
+		label.htmlFor = "masterPassword";
+		label.appendChild(document.createTextNode("Master Password:"));
+		div.appendChild(label);
+		
+		let input = document.createElement("input");
+		input.type = "password";
+		input.name = "masterPassword";
+		input.id = "masterPassword";
+		input.required = true;
+		input.classList.add("input-field");
+		div.appendChild(input);
+		
+		let span = document.createElement("span");
+		span.id = "errorMasterPassword";
+		span.classList.add("error-msg");
+		div.appendChild(span);
+		
+		//serve () => altrimenti prova ad eseguire subito la funzione
+		input.addEventListener("change", () => validateFormElem(input, document.getElementById('errorMasterPassword'), passwordErrorMessage));
+
+		//prendo il parent node della checkbox e inserisco il div dopo
+		elem.parentNode.after(div);
+			
+	} else {
+		let div = document.getElementById("masterPasswordDiv");
+		
+		if(div)
+			div.remove();
+	}
+	
+}

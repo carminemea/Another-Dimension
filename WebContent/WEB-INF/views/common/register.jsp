@@ -7,7 +7,6 @@
     <title>Registrati - Another Dimension</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/styles/style.css">
     <script type="text/javascript" src="<%=request.getContextPath()%>/scripts/validate.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/scripts/adminRegistration.js"></script>
 </head>
 <body>
 
@@ -52,18 +51,13 @@
                 
                 <div class="form-group">
                 	<label for="admin">Admin:</label>
-                	<input type="checkbox" name="admin" id="admin" onchange="insertMasterPassword(this)">
-                </div>
-                
-                <div class="form-group" id="masterPasswordGroup" style="display: none;">
-                    <label for="masterPassword">Master Password:</label>
-                    <input type="password" name="masterPassword" id="masterPassword" class="input-field"
-                    onchange="validateFormElem(this, document.getElementById('errorMasterPassword'), passwordErrorMessage)">
-                    <span id="errorMasterPassword" class="error-msg"></span>
+                	<input type="checkbox" name="admin" value="admin" id="admin" onchange="insertMasterPassword(this)">
                 </div>
                 
                 <input type="submit" value="Registrati" class="btn">
             </form>
+            
+            <p class="text-center" style="color: red;">${error}</p>
             
             <p class="text-center">
                 Hai già un account? <a href="<%=request.getContextPath()%>/AuthControl?action=redirectLogin" class="text-link">Accedi</a>
