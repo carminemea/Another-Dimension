@@ -6,21 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Another Dimension - Home</title>
+    <title>Another Dimension</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
 </head>
 <body>
 
-    <nav>
-        <a href="${pageContext.request.contextPath}/Home" class="nav-link">HOME</a>
-        <c:if test="${empty sessionScope.utente}">
-            <a href="${pageContext.request.contextPath}/AuthControl?action=redirectLogin" class="nav-link">ACCEDI</a>
-            <a href="${pageContext.request.contextPath}/AuthControl?action=redirectRegister" class="nav-link">REGISTRATI</a>
-        </c:if>
-        <c:if test="${not empty sessionScope.utente}">
-            <a href="${pageContext.request.contextPath}/AuthControl?action=logout" class="nav-link">LOGOUT</a>
-        </c:if>
-    </nav>
+    <%@ include file="header.jsp" %>
 
     <div class="container text-center">
         <h1>Benvenuto nel nostro E-commerce!</h1>

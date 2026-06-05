@@ -7,35 +7,9 @@ body {
     line-height: 1.5;
 }
 
-/*
 * {
     box-sizing: border-box;
 }
-*/
-
-nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #000;
-    color: #fff;
-    display: flex;
-    z-index: 100;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.nav-link {
-    padding: 12px 24px;
-    text-decoration: none;
-    color: inherit;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.nav-link:hover {
-    background-color: #ccc;
-    color: #000;
-}
-
 
 .container {
     max-width: 800px;

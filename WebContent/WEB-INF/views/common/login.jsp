@@ -10,9 +10,7 @@
 </head>
 <body>
 
-    <nav>
-        <a href="<%=request.getContextPath()%>/Home" class="nav-link">HOME</a>
-    </nav>
+    <%@ include file="header.jsp" %>
 
     <div class="container">
         <div class="card">
