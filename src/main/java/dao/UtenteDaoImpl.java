@@ -65,8 +65,9 @@ public class UtenteDaoImpl implements UtenteDao {
 	}
 
 	@Override
-	public synchronized void doDelete(int id) throws SQLException {
+	public synchronized boolean doDelete(int id) throws SQLException {
 		String deleteSQL = "DELETE FROM utente WHERE id = ?";
+		int result = 0;
 		
 		try(Connection c = ds.getConnection();
 				PreparedStatement ps = c.prepareStatement(deleteSQL)) {
@@ -74,6 +75,7 @@ public class UtenteDaoImpl implements UtenteDao {
 			ps.setInt(1, id);
 			ps.executeUpdate();
 		}
+		return (result != 0);
 	}
 
 	@Override
