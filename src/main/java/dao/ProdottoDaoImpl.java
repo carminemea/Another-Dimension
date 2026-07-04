@@ -39,7 +39,7 @@ public class ProdottoDaoImpl implements ProdottoDao {
 
 	@Override
 	public synchronized boolean doDelete(int id) throws SQLException {
-		//Soft Delete per fare in modo che se un prodott viene eliminato, questo non scompare dagli storici
+		//Soft Delete per fare in modo che se un prodotto viene eliminato, questo non scompare dagli storici
 		String deleteSQL = "UPDATE prodotto SET disponibile = false WHERE id = ?";
 		int result = 0;
 		
