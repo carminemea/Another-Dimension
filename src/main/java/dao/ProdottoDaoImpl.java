@@ -25,7 +25,7 @@ public class ProdottoDaoImpl implements ProdottoDao {
 		String insertSQL = "INSERT INTO prodotto (nome, descrizione, prezzo, disponibile, testoPersonalizzabile) VALUES (?, ?, ?, ?, ?)";
 		
 		try (Connection connection = ds.getConnection();
-			 PreparedStatement ps = connection.prepareStatement(insertSQL)) {
+			 PreparedStatement ps = connection.prepareStatement(insertSQL, java.sql.Statement.RETURN_GENERATED_KEYS)) {
 			
 			ps.setString(1, prodotto.getNome());
 			ps.setString(2, prodotto.getDescrizione());
@@ -34,6 +34,13 @@ public class ProdottoDaoImpl implements ProdottoDao {
 			ps.setBoolean(5, prodotto.isTestoPersonalizzabile());
 			
 			ps.executeUpdate();
+			
+			// Recuperiamo l'ID autogenerato dal Database e lo impostiamo nel Bean (per usarlo nella chiave esterna delle immagini)
+			try (ResultSet rs = ps.getGeneratedKeys()) {
+				if (rs.next()) {
+					prodotto.setId(rs.getInt(1));
+				}
+			}
 		}
 	}
 
