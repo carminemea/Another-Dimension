@@ -93,3 +93,34 @@ function insertMasterPassword(elem) {
 	}
 	
 }
+
+/* Sezione inserimento Prodotti */
+const priceErrorMessage = "Il prezzo deve essere un numero maggiore di zero";
+const textErrorMessage = "Questo campo non può essere vuoto e deve contenere testo valido";
+
+function validateProduct() {
+    let valid = true;
+    let form = document.getElementById("insertProductForm");
+    
+    let spanNome = document.getElementById("errorNomeProd");
+    if(!validateFormElem(form.nome, spanNome, textErrorMessage)){
+        valid = false;
+    }
+    
+    let spanDesc = document.getElementById("errorDescrizione");
+    if(!validateFormElem(form.descrizione, spanDesc, textErrorMessage)){
+        valid = false;
+    }
+    
+    let spanPrezzo = document.getElementById("errorPrezzo");
+    if(!validateFormElem(form.prezzo, spanPrezzo, priceErrorMessage)){
+        valid = false;
+    }
+    
+    let spanImmagine = document.getElementById("errorImmagine");
+    if(!validateFormElem(form.immagine, spanImmagine, emptyFieldErrorMessage)){
+        valid = false;
+    }
+    
+    return valid;
+}
