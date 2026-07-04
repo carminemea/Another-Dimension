@@ -129,7 +129,6 @@ public class AdminProductControl extends HttpServlet {
 			}
 		} else if (action != null && action.equalsIgnoreCase("update")) {
 			try {
-				// 1. Leggiamo i parametri
 				int id = Integer.parseInt(request.getParameter("id"));
 				String nome = request.getParameter("nome");
 				String descrizione = request.getParameter("descrizione");
@@ -137,7 +136,6 @@ public class AdminProductControl extends HttpServlet {
 				boolean disponibile = request.getParameter("disponibile") != null;
 				boolean testoPersonalizzabile = request.getParameter("testoPersonalizzabile") != null;
 				
-				// 2. Creiamo il bean e aggiorniamo tramite DAO
 				ProdottoBean prodotto = new ProdottoBean();
 				prodotto.setId(id);
 				prodotto.setNome(nome);
@@ -146,10 +144,8 @@ public class AdminProductControl extends HttpServlet {
 				prodotto.setDisponibile(disponibile);
 				prodotto.setTestoPersonalizzabile(testoPersonalizzabile);
 				
-				// Il metodo doUpdate è già implementato nel tuo ProdottoDaoImpl!
 				prodottoDao.doUpdate(prodotto); 
 				
-				// Redirezione alla dashboard
 				response.sendRedirect(request.getContextPath() + "/admin/AdminProductControl?action=viewCatalog");
 				
 			} catch (SQLException e) {
