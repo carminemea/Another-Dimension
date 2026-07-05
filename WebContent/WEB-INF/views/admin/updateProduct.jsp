@@ -27,7 +27,7 @@
                 
                 <div class="form-group">
                     <label for="descrizione">Descrizione:</label>
-                    <textarea name="descrizione" id="descrizione" class="input-field" required rows="4">${prodotto.descrizione}</textarea>
+                    <textarea name="descrizione" id="descrizione" class="input-field" required rows="1">${prodotto.descrizione}</textarea>
                     <span id="errorDescrizione" class="error-msg"></span>
                 </div>
                 
@@ -53,6 +53,7 @@
 
                 <input type="submit" value="Salva Modifiche" class="btn">
             </form>
+            <a href="${pageContext.request.contextPath}/admin/AdminProductControl?viewCatalog" class="btn">Annulla</a>
         </div>
     </div>
 </body>
