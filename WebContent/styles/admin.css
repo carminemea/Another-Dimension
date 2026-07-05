@@ -82,3 +82,21 @@ td .btn{
 	gap: 8px;
 	margin-left: auto;
 }
+
+.orderInfo{
+	background-color: #f4f4f4;
+	padding: 15px;
+	border-radius: 8px;
+	margin-bottom: 20px;
+}
+
+.dettaglioOrdine {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+#tabellaDettagli td {
+	padding: 5px;
+}

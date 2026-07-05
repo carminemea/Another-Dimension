@@ -46,7 +46,6 @@
             </form>
 
             <table>
-                <thead>
                     <tr style="background-color: #f4f4f4;">
                         <th>ID Ordine</th>
                         <th>Data</th>
@@ -55,8 +54,6 @@
                         <th>Totale</th>
                         <th>Dettagli (Print On Demand)</th>
                     </tr>
-                </thead>
-                <tbody>
                     <c:forEach var="ordine" items="${ordini}">
                         <tr>
                             <td>#${ordine.id}</td>
@@ -74,7 +71,6 @@
                             <td colspan="6" class="text-center">Nessun ordine trovato con i filtri selezionati.</td>
                         </tr>
                     </c:if>
-                </tbody>
             </table>
         </div>
     </div>
