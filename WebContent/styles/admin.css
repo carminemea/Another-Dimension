@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+.container {
+	max-width: 85%
+}
+
+.card {
+	max-width: 100%;
+}
+
+.card h1 {
+	margin: 0px 0px 16px 0px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+tr:hover {
+	background-color: rgba(139, 143, 208, 0.1);
+}
+
+td .btn{
+	width: 90%;
+	padding: 5px 10px; 
+	font-size: 14px;
+}
+
+#deleteBtn {
+	background-color: #D12335;
+	margin-bottom: 10px;
+}
+
+#deleteBtn:hover {
+	background-color: rgba(243, 117, 130, 1);
+}
+
+#addBtn {
+	width: auto;
+}
