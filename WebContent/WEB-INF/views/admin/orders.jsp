@@ -6,27 +6,28 @@
     <meta charset="UTF-8">
     <title>Gestione Ordini - Admin</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/admin.css">
 </head>
 <body>
     <%@ include file="../common/header.jsp" %>
 
     <div class="container">
-        <div class="card" style="max-width: 100%;">
-            <h2>Gestione Storico Ordini</h2>
+        <div class="card">
+            <h1 class="text-center">Gestione Storico Ordini</h1>
             
-            <form action="${pageContext.request.contextPath}/admin/AdminOrderControl" method="get" style="margin-bottom: 20px; display: flex; gap: 15px; align-items: flex-end;">
+            <form action="${pageContext.request.contextPath}/admin/AdminOrderControl" method="get" id="filterForm">
                 
-                <div class="form-group" style="margin-bottom: 0;">
+                <div class="form-group">
                     <label for="startDate">Da data:</label>
                     <input type="date" name="startDate" id="startDate" class="input-field" value="${paramStartDate}">
                 </div>
                 
-                <div class="form-group" style="margin-bottom: 0;">
+                <div class="form-group">
                     <label for="endDate">A data:</label>
                     <input type="date" name="endDate" id="endDate" class="input-field" value="${paramEndDate}">
                 </div>
                 
-                <div class="form-group" style="margin-bottom: 0;">
+                <div class="form-group">
                     <label for="utenteId">Cliente:</label>
                     <select name="utenteId" id="utenteId" class="input-field">
                         <option value="">Tutti i Clienti</option>
@@ -38,13 +39,15 @@
                     </select>
                 </div>
                 
-                <input type="submit" value="Filtra" class="btn" style="width: auto; margin-top: 0;">
-                <a href="${pageContext.request.contextPath}/admin/AdminOrderControl" class="btn" style="background-color: #888; width: auto; margin-top: 0;">Reset</a>
+                <div class="buttonGroup">
+                	<input type="submit" value="Filtra" class="btn" id="filterBtn">
+                	<a href="${pageContext.request.contextPath}/admin/AdminOrderControl" class="btn" id="resetBtn">Reset</a>
+                </div>
             </form>
 
-            <table border="1" style="width: 100%; border-collapse: collapse; text-align: center;">
+            <table>
                 <thead>
-                    <tr style="background-color: #f0f0f0;">
+                    <tr style="background-color: #f4f4f4;">
                         <th>ID Ordine</th>
                         <th>Data</th>
                         <th>ID Cliente</th>
@@ -62,7 +65,7 @@
                             <td>${ordine.indirizzo}</td>
                             <td>€ ${ordine.totale}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/admin/AdminOrderControl?action=viewDetails&id=${ordine.id}" class="btn" style="padding: 5px 10px; font-size: 14px;">Dettagli</a>
+                                <a href="${pageContext.request.contextPath}/admin/AdminOrderControl?action=viewDetails&id=${ordine.id}" class="btn" style="margin-bottom: 10px;">Dettagli</a>
                             </td>
                         </tr>
                     </c:forEach>
