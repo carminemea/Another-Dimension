@@ -52,7 +52,7 @@ public class ImmagineDaoImpl implements ImmagineDao {
 	@Override
 	public synchronized Collection<ImmagineBean> doRetrieveByProdotto(int idProdotto) throws SQLException {
 		List<ImmagineBean> immagini = new ArrayList<>();
-		String selectSQL = "SELECT * FROM immagini WHERE idProdotto = ?";
+		String selectSQL = "SELECT * FROM immagine WHERE idProdotto = ?";
 		
 		try (Connection connection = ds.getConnection();
 			 PreparedStatement ps = connection.prepareStatement(selectSQL)) {
@@ -73,5 +73,30 @@ public class ImmagineDaoImpl implements ImmagineDao {
 		}
 		return immagini;
 	}
+
+	@Override
+	public ImmagineBean doRetrieveByKey(int id) throws SQLException {
+		String selectSQL = "SELECT * FROM immagine WHERE id = ?";
+		ImmagineBean bean = null;
+		
+		try(Connection connection = ds.getConnection();
+				PreparedStatement ps = connection.prepareStatement(selectSQL)) {
+			
+			ps.setInt(1, id);
+			
+			try(ResultSet rs = ps.executeQuery()) {
+				if(rs.next()) {
+					bean = new ImmagineBean();
+					bean.setId(rs.getInt("id"));
+					bean.setPath(rs.getString("path"));
+					bean.setMimeType(rs.getString("mimeType"));
+					bean.setIdProdotto(rs.getInt("idProdotto"));
+				}
+			}
+		}
+		
+		return bean;
+	}
+	
 }
 

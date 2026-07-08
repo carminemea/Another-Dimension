@@ -51,8 +51,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="immagine">Immagine Prodotto:</label>
-                    <input type="file" name="immagine" id="immagine" class="input-field" accept="image/png, image/jpeg" required
+                    <label for="immagini">Immagini Prodotto:</label>
+                    <input type="file" name="immagini" id="immagini" class="input-field" accept="image/png, image/jpeg" required multiple
                     onchange="validateFormElem(this, document.getElementById('errorImmagine'), emptyFieldErrorMessage)">
                     <span id="errorImmagine" class="error-msg"></span>
                 </div>

@@ -117,9 +117,9 @@ function validateProduct() {
         valid = false;
     }
     
-    let spanImmagine = document.getElementById("errorImmagine");
-    if(!validateFormElem(form.immagine, spanImmagine, emptyFieldErrorMessage)){
-        valid = false;
+	let spanImmagine = document.getElementById("errorImmagine");
+	if(!validateFormElem(form.immagini, spanImmagine, emptyFieldErrorMessage)){
+	       valid = false;
     }
     
     return valid;

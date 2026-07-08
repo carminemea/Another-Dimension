@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 import javax.sql.DataSource;
 
@@ -35,6 +37,7 @@ public class AdminProductControl extends HttpServlet {
 	
 	private ProdottoDao prodottoDao;
 	private ImmagineDao immagineDao;
+	private static final String UPLOAD_DIR = "uploads";
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -45,6 +48,12 @@ public class AdminProductControl extends HttpServlet {
 		}
 		prodottoDao = new ProdottoDaoImpl(ds);
 		immagineDao = new ImmagineDaoImpl(ds);
+		//creo la cartella uploads
+		String uploadPath = getServletContext().getRealPath(File.separator + UPLOAD_DIR);
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -53,6 +62,10 @@ public class AdminProductControl extends HttpServlet {
 		try {
 			if (action == null || action.equalsIgnoreCase("viewCatalog")) {
 				Collection<ProdottoBean> prodotti = prodottoDao.doRetrieveAll("id");
+				for(ProdottoBean p : prodotti) {
+					List<ImmagineBean> immagini = (List<ImmagineBean>) immagineDao.doRetrieveByProdotto(p.getId());
+					p.setImmagini(immagini);
+				}
 				request.setAttribute("prodotti", prodotti);
 				request.getRequestDispatcher("/WEB-INF/views/admin/dashboard.jsp").forward(request, response);
 			
@@ -97,27 +110,25 @@ public class AdminProductControl extends HttpServlet {
 				
 				prodottoDao.doSave(prodotto); 
 				
-				Part filePart = request.getPart("immagine");
-				if (filePart != null && filePart.getSize() > 0) {
-					String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-					String mimeType = filePart.getContentType();
-					
-					String uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + "products";
-					File uploadDir = new File(uploadPath);
-					if (!uploadDir.exists()) {
-						uploadDir.mkdir();
-					}
-					
-					String filePath = uploadPath + File.separator + fileName;
-					filePart.write(filePath);
-					
-					ImmagineBean immagine = new ImmagineBean();
-					immagine.setIdProdotto(prodotto.getId());
-					immagine.setPath("images/products/" + fileName);
-					immagine.setMimeType(mimeType);
-					
-					immagineDao.doSave(immagine);
-				}
+				for (Part part : request.getParts()) {
+                    if (part.getName().equals("immagini") && part.getSize() > 0) {
+                        String originalFileName = part.getSubmittedFileName();
+                        if (originalFileName != null && !originalFileName.isEmpty()) {
+                            
+                            String mimeType = part.getContentType();
+                            String uniqueFileName = buildUniqueFileName(part);
+                            String uploadPath = getServletContext().getRealPath(File.separator + UPLOAD_DIR + File.separator + uniqueFileName);
+                            
+                            ImmagineBean immagine = new ImmagineBean();
+                            immagine.setIdProdotto(prodotto.getId()); //id generato dopo la doSave
+                            immagine.setMimeType(mimeType);
+                            immagine.setPath(uploadPath);
+                            
+                            part.write(uploadPath);
+                            immagineDao.doSave(immagine);
+                        }
+                    }
+                }
 				
 				response.sendRedirect(request.getContextPath() + "/admin/AdminProductControl?action=viewCatalog");
 				
@@ -153,5 +164,16 @@ public class AdminProductControl extends HttpServlet {
 		} else {
 			doGet(request, response);
 		}
+	}
+	
+	private String buildUniqueFileName(Part part) {
+		String originalName = part.getSubmittedFileName();
+		String extension;
+		if (originalName.contains(".")) {
+		    extension = originalName.substring(originalName.lastIndexOf("."));
+		} else {
+		    extension = "";
+		}
+		return UUID.randomUUID() + extension;
 	}
 }

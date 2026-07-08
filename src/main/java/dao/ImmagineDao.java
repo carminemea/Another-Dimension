@@ -12,4 +12,5 @@ public interface ImmagineDao {
 	
 	public Collection<ImmagineBean> doRetrieveByProdotto(int idProdotto) throws SQLException;
 	
+	public ImmagineBean doRetrieveByKey(int id) throws SQLException;
 }

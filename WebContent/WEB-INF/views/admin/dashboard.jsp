@@ -27,7 +27,7 @@
                     <c:forEach var="prodotto" items="${prodotti}">
                         <tr>
                             <td>${prodotto.id}</td>
-                            <td>${prodotto.immagini}</td> <!-- Aggiungere immagini con servlet apposita -->
+                            <td><img src="${pageContext.request.contextPath}/ImageControl?action=show&id=${prodotto.immagini[0].id}" alt="Img" class="product-thumbnail"></td>
                             <td>${prodotto.nome}</td>
                             <td>€ ${prodotto.prezzo}</td>
                             <td>${prodotto.disponibile ? 'Sì' : 'No'}</td>
