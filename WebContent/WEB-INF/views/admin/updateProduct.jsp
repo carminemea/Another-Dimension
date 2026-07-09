@@ -49,8 +49,6 @@
                     </label>
                 </div>
 
-                <input type="hidden" name="immagine" id="immagine" value="dummy">
-
                 <input type="submit" value="Salva Modifiche" class="btn">
             </form>
             <a href="${pageContext.request.contextPath}/admin/AdminProductControl?viewCatalog" class="btn">Annulla</a>

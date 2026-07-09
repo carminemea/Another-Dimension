@@ -16,7 +16,7 @@
 			<li onclick=hideSidebar() ><a href="#"><img src="${pageContext.request.contextPath}/images/close.svg" alt="Close"/></a></li>
 			<li><a href="${pageContext.request.contextPath}/Home">Home</a></li>
 			<li><a href="#">Print on Demand</a></li>
-			<li><a href="#">Prodotti</a></li>
+			<li><a href="${pageContext.request.contextPath}/ProductControl">Prodotti</a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/images/cart.svg" alt="Carrello"/></a></li>
 			<c:choose>
 				<c:when test="${empty sessionScope.utente}">
@@ -31,7 +31,7 @@
 			<li><a href="${pageContext.request.contextPath}/Home" id="logoHeader"><img src="${pageContext.request.contextPath}/images/logo.svg" alt="Another Dimension" height="125%" /></a></li>
 			<li class="hide934"><a href="${pageContext.request.contextPath}/Home">Home</a></li>
 			<li class="hide934"><a href="#">Print on Demand</a></li>
-			<li class="hide934"><a href="#">Prodotti</a></li>
+			<li class="hide934"><a href="${pageContext.request.contextPath}/ProductControl">Prodotti</a></li>
 			<li class="hide934"><a href="#"><img src="${pageContext.request.contextPath}/images/cart.svg" alt="Carrello"/></a></li>
 			<c:choose>
 				<c:when test="${empty sessionScope.utente }">
