@@ -54,6 +54,7 @@
                         <input type="number" name="quantita" id="quantita" value="1" min="1" class="input-field" style="width: 80px;" required>
                     </div>
 
+                    <!-- 
                     <div class="form-group">
                         <label for="coloreScelto">Scegli Colore:</label>
                         <select name="coloreScelto" id="coloreScelto" class="input-field">
@@ -63,6 +64,7 @@
                             <option value="Nero">Nero</option>
                         </select>
                     </div>
+					-->
 
                     <c:if test="${prodotto.testoPersonalizzabile}">
                         <div class="form-group">
