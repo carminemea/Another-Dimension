@@ -17,7 +17,7 @@ import dao.ColoreDao;
 import dao.ColoreDaoImpl;
 import model.ColoreBean;
 
-@WebServlet("/admin/AdminColoreControl")
+@WebServlet("/admin/AdminColorControl")
 public class AdminColorControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -44,7 +44,7 @@ public class AdminColorControl extends HttpServlet {
 			} else if (action.equalsIgnoreCase("delete")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				coloreDao.doDelete(id);
-				response.sendRedirect(request.getContextPath() + "/admin/AdminColoreControl?action=viewColori");
+				response.sendRedirect(request.getContextPath() + "/admin/AdminColorControl?action=viewColori");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -66,7 +66,7 @@ public class AdminColorControl extends HttpServlet {
 				
 				coloreDao.doSave(colore);
 				
-				response.sendRedirect(request.getContextPath() + "/admin/AdminColoreControl?action=viewColori");
+				response.sendRedirect(request.getContextPath() + "/admin/AdminColorControl?action=viewColori");
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
