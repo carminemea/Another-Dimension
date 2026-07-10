@@ -54,17 +54,20 @@
                         <input type="number" name="quantita" id="quantita" value="1" min="1" class="input-field" style="width: 80px;" required>
                     </div>
 
-                    <!-- 
-                    <div class="form-group">
-                        <label for="coloreScelto">Scegli Colore:</label>
-                        <select name="coloreScelto" id="coloreScelto" class="input-field">
-                            <option value="Standard">Standard</option>
-                            <option value="Rosso">Rosso</option>
-                            <option value="Blu">Blu</option>
-                            <option value="Nero">Nero</option>
-                        </select>
-                    </div>
-					-->
+                    <c:if test="${not empty prodotto.colori}">
+                        <div class="form-group">
+                            <label>Scegli Colore:</label>
+                            <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 8px;">
+                                <c:forEach var="colore" items="${prodotto.colori}">
+                                    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 1.1rem;">
+                                        <input type="radio" name="coloreScelto" value="${colore.nome}" required>
+                                        <span style="display: inline-block; width: 22px; height: 22px; background-color: ${colore.codiceHex}; border: 1px solid #999; border-radius: 50%;"></span>
+                                        ${colore.nome}
+                                    </label>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </c:if>
 
                     <c:if test="${prodotto.testoPersonalizzabile}">
                         <div class="form-group">

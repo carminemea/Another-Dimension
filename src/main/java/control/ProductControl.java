@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.ColoreBean;
 import model.ImmagineBean;
 import model.ProdottoBean;
 
@@ -17,6 +18,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import dao.ColoreDao;
+import dao.ColoreDaoImpl;
 import dao.ImmagineDao;
 import dao.ImmagineDaoImpl;
 import dao.ProdottoDao;
@@ -28,6 +31,7 @@ public class ProductControl extends HttpServlet {
 	
 	private ProdottoDao prodottoDao;
 	private ImmagineDao immagineDao;
+	private ColoreDao coloreDao;
        
     public ProductControl() {
         super();
@@ -40,6 +44,7 @@ public class ProductControl extends HttpServlet {
 		
 		prodottoDao = new ProdottoDaoImpl(ds);
 		immagineDao = new ImmagineDaoImpl(ds);
+		coloreDao = new ColoreDaoImpl(ds);
 	}
 
 
@@ -67,6 +72,7 @@ public class ProductControl extends HttpServlet {
 				
 				if(prodotto != null && prodotto.isDisponibile()) {
 					prodotto.setImmagini((List<ImmagineBean>) immagineDao.doRetrieveByProdotto(id));
+					prodotto.setColori((List<ColoreBean>) coloreDao.doRetrieveByProdotto(id));
 					request.setAttribute("prodotto", prodotto);
 					request.getRequestDispatcher("/WEB-INF/views/common/product.jsp").forward(request, response);
 				} else {
