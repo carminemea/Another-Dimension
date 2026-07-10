@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -51,6 +52,22 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Colori Disponibili:</label>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 8px;">
+                        <c:forEach var="colore" items="${coloriDisponibili}">
+                            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: normal;">
+                                <input type="checkbox" name="colori" value="${colore.id}">
+                                <span style="display: inline-block; width: 16px; height: 16px; background-color: ${colore.codiceHex}; border: 1px solid #ccc; border-radius: 4px;"></span>
+                                ${colore.nome}
+                            </label>
+                        </c:forEach>
+                        <c:if test="${empty coloriDisponibili}">
+                            <span style="color: #777; font-style: italic; font-size: 14px;">Nessun colore presente nel database.</span>
+                        </c:if>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="immagini">Immagini Prodotto:</label>
                     <input type="file" name="immagini" id="immagini" class="input-field" accept="image/png, image/jpeg" required multiple
                     onchange="validateFormElem(this, document.getElementById('errorImmagine'), emptyFieldErrorMessage)">
@@ -59,7 +76,7 @@
                 
                 <input type="submit" value="Aggiungi Prodotto" class="btn">
             </form>
-            <a href="${pageContext.request.contextPath}/admin/AdminProductControl?viewCatalog" class="btn">Annulla</a>
+            <a href="${pageContext.request.contextPath}/admin/AdminProductControl?action=viewCatalog" class="btn">Annulla</a>
         </div>
     </div>
 </body>

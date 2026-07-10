@@ -49,9 +49,34 @@
                     </label>
                 </div>
 
+                <div class="form-group">
+                    <label>Colori Associati:</label>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 8px;">
+                        <c:forEach var="colore" items="${coloriDisponibili}">
+                            
+                            <c:set var="isChecked" value="false" />
+                            <c:forEach var="prodColore" items="${prodotto.colori}">
+                                <c:if test="${prodColore.id == colore.id}">
+                                    <c:set var="isChecked" value="true" />
+                                </c:if>
+                            </c:forEach>
+
+                            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: normal;">
+                                <input type="checkbox" name="colori" value="${colore.id}" <c:if test="${isChecked}">checked</c:if>>
+                                <span style="display: inline-block; width: 16px; height: 16px; background-color: ${colore.codiceHex}; border: 1px solid #ccc; border-radius: 4px;"></span>
+                                ${colore.nome}
+                            </label>
+
+                        </c:forEach>
+                        <c:if test="${empty coloriDisponibili}">
+                            <span style="color: #777; font-style: italic; font-size: 14px;">Nessun colore presente nel database.</span>
+                        </c:if>
+                    </div>
+                </div>
+
                 <input type="submit" value="Salva Modifiche" class="btn">
             </form>
-            <a href="${pageContext.request.contextPath}/admin/AdminProductControl?viewCatalog" class="btn">Annulla</a>
+            <a href="${pageContext.request.contextPath}/admin/AdminProductControl?action=viewCatalog" class="btn">Annulla</a>
         </div>
     </div>
 </body>
