@@ -22,20 +22,24 @@ import dao.ImmagineDao;
 import dao.ImmagineDaoImpl;
 import dao.ProdottoDao;
 import dao.ProdottoDaoImpl;
+import dao.ColoreDao;
+import dao.ColoreDaoImpl;
 import model.ImmagineBean;
 import model.ProdottoBean;
+import model.ColoreBean;
 
 @WebServlet("/admin/AdminProductControl")
 @MultipartConfig(
-	fileSizeThreshold = 1024 * 1024 * 2,  // 2MB: i file più grandi vengono scritti su disco temporaneo
-	maxFileSize = 1024 * 1024 * 10,       // 10MB: dimensione massima del singolo file
-	maxRequestSize = 1024 * 1024 * 50     // 50MB: dimensione massima della request
+	fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
+	maxFileSize = 1024 * 1024 * 10,       // 10MB
+	maxRequestSize = 1024 * 1024 * 50     // 50MB
 )
 public class AdminProductControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private ProdottoDao prodottoDao;
 	private ImmagineDao immagineDao;
+	private ColoreDao coloreDao;
 	private static final String UPLOAD_DIR = "uploads";
 
 	@Override
@@ -47,7 +51,8 @@ public class AdminProductControl extends HttpServlet {
 		}
 		prodottoDao = new ProdottoDaoImpl(ds);
 		immagineDao = new ImmagineDaoImpl(ds);
-		//creo la cartella uploads
+		coloreDao = new ColoreDaoImpl(ds);
+		
 		String uploadPath = getServletContext().getRealPath(File.separator + UPLOAD_DIR);
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
@@ -69,13 +74,18 @@ public class AdminProductControl extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/views/admin/dashboard.jsp").forward(request, response);
 			
 			} else if (action.equalsIgnoreCase("showInsertForm")) {
+				request.setAttribute("coloriDisponibili", coloreDao.doRetrieveAll());
 				request.getRequestDispatcher("/WEB-INF/views/admin/insertProduct.jsp").forward(request, response);
 			
 			} else if (action.equalsIgnoreCase("showUpdateForm")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				ProdottoBean prodotto = prodottoDao.doRetrieveByKey(id);
-				
+				// colori associati al prodotto
+				prodotto.setColori((List<ColoreBean>) coloreDao.doRetrieveByProdotto(id));
 				request.setAttribute("prodotto", prodotto);
+				// tutti i colori, serve per aggiungere e togliere i colori del prodotto poi
+				request.setAttribute("coloriDisponibili", coloreDao.doRetrieveAll()); 
+				
 				request.getRequestDispatcher("/WEB-INF/views/admin/updateProduct.jsp").forward(request, response);
 		
 			} else if (action.equalsIgnoreCase("delete")) {
@@ -107,6 +117,15 @@ public class AdminProductControl extends HttpServlet {
 				prodotto.setDisponibile(disponibile);
 				prodotto.setTestoPersonalizzabile(testoPersonalizzabile);
 				
+				String[] coloriSelezionati = request.getParameterValues("colori");
+				if (coloriSelezionati != null) {
+					for (String idColoreStr : coloriSelezionati) {
+						ColoreBean c = new ColoreBean();
+						c.setId(Integer.parseInt(idColoreStr));
+						prodotto.addColore(c);
+					}
+				}
+				
 				prodottoDao.doSave(prodotto); 
 				
 				for (Part part : request.getParts()) {
@@ -119,7 +138,7 @@ public class AdminProductControl extends HttpServlet {
                             String uploadPath = getServletContext().getRealPath(File.separator + UPLOAD_DIR + File.separator + uniqueFileName);
                             
                             ImmagineBean immagine = new ImmagineBean();
-                            immagine.setIdProdotto(prodotto.getId()); //id generato dopo la doSave
+                            immagine.setIdProdotto(prodotto.getId()); 
                             immagine.setMimeType(mimeType);
                             immagine.setPath(uploadPath);
                             
@@ -151,6 +170,15 @@ public class AdminProductControl extends HttpServlet {
 				prodotto.setPrezzo(prezzo);
 				prodotto.setDisponibile(disponibile);
 				prodotto.setTestoPersonalizzabile(testoPersonalizzabile);
+				
+				String[] coloriSelezionati = request.getParameterValues("colori");
+				if (coloriSelezionati != null) {
+					for (String idColoreStr : coloriSelezionati) {
+						ColoreBean c = new ColoreBean();
+						c.setId(Integer.parseInt(idColoreStr));
+						prodotto.addColore(c);
+					}
+				}
 				
 				prodottoDao.doUpdate(prodotto); 
 				
