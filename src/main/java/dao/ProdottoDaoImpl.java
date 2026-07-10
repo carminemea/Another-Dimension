@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import model.ColoreBean;
 import model.ProdottoBean;
 
 public class ProdottoDaoImpl implements ProdottoDao {
@@ -22,28 +23,60 @@ public class ProdottoDaoImpl implements ProdottoDao {
 
 	@Override
 	public synchronized void doSave(ProdottoBean prodotto) throws SQLException {
-		String insertSQL = "INSERT INTO prodotto (nome, descrizione, prezzo, disponibile, testoPersonalizzabile) VALUES (?, ?, ?, ?, ?)";
+		Connection connection = null;
 		
-		try (Connection connection = ds.getConnection();
-			 PreparedStatement ps = connection.prepareStatement(insertSQL, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+		try {
+			connection = ds.getConnection();
+			// per rendere l'operazione atomica per la tabella dei colori
+			connection.setAutoCommit(false); 
 			
-			ps.setString(1, prodotto.getNome());
-			ps.setString(2, prodotto.getDescrizione());
-			ps.setDouble(3, prodotto.getPrezzo());
-			ps.setBoolean(4, prodotto.isDisponibile());
-			ps.setBoolean(5, prodotto.isTestoPersonalizzabile());
+			String insertSQL = "INSERT INTO prodotto (nome, descrizione, prezzo, disponibile, testoPersonalizzabile) VALUES (?, ?, ?, ?, ?)";
 			
-			ps.executeUpdate();
-			
-			// Recuperiamo l'ID autogenerato dal Database e lo impostiamo nel Bean (per usarlo nella chiave esterna delle immagini)
-			try (ResultSet rs = ps.getGeneratedKeys()) {
-				if (rs.next()) {
-					prodotto.setId(rs.getInt(1));
+			try (PreparedStatement ps = connection.prepareStatement(insertSQL, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+				ps.setString(1, prodotto.getNome());
+				ps.setString(2, prodotto.getDescrizione());
+				ps.setDouble(3, prodotto.getPrezzo());
+				ps.setBoolean(4, prodotto.isDisponibile());
+				ps.setBoolean(5, prodotto.isTestoPersonalizzabile());
+				
+				ps.executeUpdate();
+				
+				// ID autogenerato
+				try (ResultSet rs = ps.getGeneratedKeys()) {
+					if (rs.next()) {
+						prodotto.setId(rs.getInt(1));
+					}
 				}
+			}
+			
+			// se il prodotto ha dei colori associati, li salviamo nella tabella 
+			if (prodotto.getColori() != null && !prodotto.getColori().isEmpty()) {
+				String insertColoriSQL = "INSERT INTO prodottoColore (idProdotto, idColore) VALUES (?, ?)";
+				try (PreparedStatement psColori = connection.prepareStatement(insertColoriSQL)) {
+					for (ColoreBean colore : prodotto.getColori()) {
+						psColori.setInt(1, prodotto.getId());
+						psColori.setInt(2, colore.getId());
+						psColori.executeUpdate();
+					}
+				}
+			}
+			
+			// reimposto
+			connection.commit(); 
+			
+		} catch (SQLException e) {
+			if (connection != null) {
+				connection.rollback(); // In caso di errore, annulliamo tutto
+			}
+			throw e;
+		} finally {
+			if (connection != null) {
+				connection.setAutoCommit(true); // Ripristiniamo il comportamento di default
+				connection.close();
 			}
 		}
 	}
-
+	
 	@Override
 	public synchronized boolean doDelete(int id) throws SQLException {
 		//Soft Delete per fare in modo che se un prodotto viene eliminato, questo non scompare dagli storici
@@ -117,20 +150,55 @@ public class ProdottoDaoImpl implements ProdottoDao {
 
 	@Override
 	public synchronized void doUpdate(ProdottoBean prodotto) throws SQLException {
-		String updateSQL = "UPDATE prodotto SET nome = ?, descrizione = ?, prezzo = ?, disponibile = ?, testoPersonalizzabile = ? WHERE id = ?";
+		Connection connection = null;
 		
-		try (Connection connection = ds.getConnection();
-			 PreparedStatement ps = connection.prepareStatement(updateSQL)) {
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false); // atomico
 			
-			ps.setString(1, prodotto.getNome());
-			ps.setString(2, prodotto.getDescrizione());
-			ps.setDouble(3, prodotto.getPrezzo());
-			ps.setBoolean(4, prodotto.isDisponibile());
-			ps.setBoolean(5, prodotto.isTestoPersonalizzabile());
+			String updateSQL = "UPDATE prodotto SET nome = ?, descrizione = ?, prezzo = ?, disponibile = ?, testoPersonalizzabile = ? WHERE id = ?";
 			
-			ps.setInt(6, prodotto.getId());
+			try (PreparedStatement ps = connection.prepareStatement(updateSQL)) {
+				ps.setString(1, prodotto.getNome());
+				ps.setString(2, prodotto.getDescrizione());
+				ps.setDouble(3, prodotto.getPrezzo());
+				ps.setBoolean(4, prodotto.isDisponibile());
+				ps.setBoolean(5, prodotto.isTestoPersonalizzabile());
+				ps.setInt(6, prodotto.getId());
+				
+				ps.executeUpdate();
+			}
 			
-			ps.executeUpdate();
+			// update dei colori, per semplicità elimino e riaggiungo
+			String deleteColoriSQL = "DELETE FROM prodottoColore WHERE idProdotto = ?";
+			try (PreparedStatement psDelete = connection.prepareStatement(deleteColoriSQL)) {
+				psDelete.setInt(1, prodotto.getId());
+				psDelete.executeUpdate();
+			}
+			
+			if (prodotto.getColori() != null && !prodotto.getColori().isEmpty()) {
+				String insertColoriSQL = "INSERT INTO prodottoColore (idProdotto, idColore) VALUES (?, ?)";
+				try (PreparedStatement psColori = connection.prepareStatement(insertColoriSQL)) {
+					for (ColoreBean colore : prodotto.getColori()) {
+						psColori.setInt(1, prodotto.getId());
+						psColori.setInt(2, colore.getId());
+						psColori.executeUpdate();
+					}
+				}
+			}
+			
+			connection.commit();
+			
+		} catch (SQLException e) {
+			if (connection != null) {
+				connection.rollback();
+			}
+			throw e;
+		} finally {
+			if (connection != null) {
+				connection.setAutoCommit(true);
+				connection.close();
+			}
 		}
 	}
 }

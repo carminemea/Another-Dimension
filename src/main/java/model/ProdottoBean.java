@@ -15,9 +15,11 @@ public class ProdottoBean implements Serializable{
 	private boolean disponibile;
 	private boolean testoPersonalizzabile;
 	private List<ImmagineBean> immagini;
+	private List<ColoreBean> colori;
 	
 	public ProdottoBean() {
 		immagini = new ArrayList<ImmagineBean>();
+		colori = new ArrayList<ColoreBean>();
 	}
 
 	public int getId() {
@@ -78,6 +80,18 @@ public class ProdottoBean implements Serializable{
 	
 	public void addImmagine(ImmagineBean immagine) {
 		immagini.add(immagine);
+	}
+	
+	public List<ColoreBean> getColori() {
+		return colori;
+	}
+
+	public void setColori(List<ColoreBean> colori) {
+		this.colori = colori;
+	}
+	
+	public void addColore(ColoreBean colore) {
+		this.colori.add(colore);
 	}
 	
 }
