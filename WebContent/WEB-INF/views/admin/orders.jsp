@@ -15,6 +15,10 @@
         <div class="card">
             <h1 class="text-center">Gestione Ordini</h1>
             
+            <div class="text-center" style="margin-bottom: 20px;">
+                <a href="${pageContext.request.contextPath}/admin/AdminControl" class="btn" style="width: auto; background-color: #8B8FD0;">Torna al Pannello Amministrazione</a>
+            </div>
+            
             <form action="${pageContext.request.contextPath}/admin/AdminOrderControl" method="get" id="filterForm">
                 
                 <div class="form-group">

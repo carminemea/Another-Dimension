@@ -14,7 +14,12 @@
     <div class="container">
         <div class="card">
             <h1 class="text-center">Gestione Catalogo Prodotti</h1>
-			<div class="table-responsive">
+            
+            <div class="text-center" style="margin-bottom: 20px;">
+                <a href="${pageContext.request.contextPath}/admin/AdminControl" class="btn" style="width: auto; background-color: #8B8FD0;">Torna al Pannello Amministrazione</a>
+            </div>
+
+            <div class="table-responsive">
             <table>
                     <tr style="background-color: #f4f4f4;">
                         <th>ID</th>
@@ -39,7 +44,7 @@
                     </c:forEach>
                     <c:if test="${empty prodotti}">
                         <tr>
-                            <td colspan="5" class="text-center">Nessun prodotto presente nel catalogo.</td>
+                            <td colspan="6" class="text-center">Nessun prodotto presente nel catalogo.</td>
                         </tr>
                     </c:if>
             </table>

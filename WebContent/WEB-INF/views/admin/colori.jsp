@@ -15,6 +15,10 @@
         <div class="card">
             <h1 class="text-center">Gestione Colori</h1>
 
+            <div class="text-center" style="margin-bottom: 20px;">
+                <a href="${pageContext.request.contextPath}/admin/AdminControl" class="btn" style="width: auto; background-color: #8B8FD0;">Torna al Pannello Amministrazione</a>
+            </div>
+
             <div class="color-form-container">
                 <h3>Aggiungi Nuovo Colore</h3>
                 <form action="${pageContext.request.contextPath}/admin/AdminColorControl" method="post" id="colorInsertForm">
@@ -31,8 +35,9 @@
                     </div>
                     
                     <input type="submit" value="Salva Colore" class="btn" style="width : auto">
-        </div>
-        <div class="table-responsive">
+                </form>
+            </div>
+            <div class="table-responsive">
             <table>
                 <tr style="background-color: #000; color: #fff;">
                     <th>ID</th>
@@ -61,6 +66,7 @@
                 </c:if>
             </table>
             </div>
+        </div>
     </div>
 </body>
 </html>
