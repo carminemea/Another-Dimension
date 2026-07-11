@@ -23,6 +23,7 @@
 					<li><a href="${pageContext.request.contextPath}/AuthControl?action=redirectLogin"><img src="${pageContext.request.contextPath}/images/account.svg" alt="Account"/></a></li>
 				</c:when>
 				<c:otherwise>
+					<li><a href="${pageContext.request.contextPath}/UserControl"><img src="${pageContext.request.contextPath}/images/account.svg" alt="Account"/></a></li>
 					<li><a href="${pageContext.request.contextPath}/AuthControl?action=logout"><img src="${pageContext.request.contextPath}/images/logout.svg" alt="Logout"/></a></li>
 				</c:otherwise>
 			</c:choose>
@@ -38,7 +39,7 @@
 					<li class="hide934"><a href="${pageContext.request.contextPath}/AuthControl?action=redirectLogin"><img src="${pageContext.request.contextPath}/images/account.svg" alt="Account"/></a></li>
 				</c:when>
 				<c:otherwise>
-					<span class="welcome-name">Ciao, ${sessionScope.utente.nome}</span>
+					<li class="hide934"><a href="${pageContext.request.contextPath}/UserControl"><img src="${pageContext.request.contextPath}/images/account.svg" alt="Account"/></a></li>
 					<li class="hide934"><a href="${pageContext.request.contextPath}/AuthControl?action=logout"><img src="${pageContext.request.contextPath}/images/logout.svg" alt="Logout"/></a></li>
 				</c:otherwise>
 			</c:choose>

@@ -10,7 +10,7 @@
 <body>
     <%@ include file="header.jsp" %>
 
-    <div class="container" style="max-width: 1200px;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto;">
         <h1 class="text-center">I Nostri Prodotti</h1>
 
         <div class="product-grid">

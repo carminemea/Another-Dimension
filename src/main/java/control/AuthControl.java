@@ -44,9 +44,7 @@ public class AuthControl extends HttpServlet {
 		try {
 			processAction(request, response);
 		} catch (ServletException | SQLException e) {
-			
 			e.printStackTrace();
-			// response.sendRedirect(request.getContextPath() + "/common/error.jsp");
 		} 
 	}
 
