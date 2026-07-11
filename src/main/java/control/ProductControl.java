@@ -58,9 +58,10 @@ public class ProductControl extends HttpServlet {
 				List<ProdottoBean> prodottiDisp = new ArrayList<>();
 				
 				for(ProdottoBean p : tuttiProdotti) {
-					if(p.isDisponibile())
+					if(p.isDisponibile()) {
 						p.setImmagini((List<ImmagineBean>) immagineDao.doRetrieveByProdotto(p.getId()));
 						prodottiDisp.add(p);
+					}
 				}
 				
 				request.setAttribute("prodotti", prodottiDisp);
