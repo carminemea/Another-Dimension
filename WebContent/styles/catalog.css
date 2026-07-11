@@ -1,4 +1,3 @@
-/* --- PAGINA CATALOGO --- */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -17,8 +16,7 @@
     flex-direction: column;
     background: #ffffff;
     border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     height: 100%;
 }
 
@@ -34,13 +32,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .product-image img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain;
 }
 
 .product-info {
@@ -49,25 +46,20 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    flex-grow: 1;
 }
 
 .product-title {
-    font-size: 1.1rem;
-    margin: 0 0 10px 0;
+    margin: 0 0 5px 0;
 }
 
 .product-price {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-top: auto;
+    font-size: 1.1em;
 }
 
 /* --- PAGINA DETTAGLIO PRODOTTO --- */
 .product-detail-container {
     display: flex;
-    flex-wrap: wrap; /* Per il responsive */
+    flex-wrap: wrap; /* per il responsive */
     gap: 40px;
     background: #fff;
     padding: 30px;
@@ -96,7 +88,6 @@
 .main-image-wrapper img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain;
 }
 
 .thumbnails {
@@ -112,7 +103,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     cursor: pointer;
-    transition: border-color 0.2s;
+    transition: all 0.2s;
     padding: 5px;
 }
 
@@ -124,25 +115,25 @@
     flex: 1 1 400px;
     display: flex;
     flex-direction: column;
+    text-align: justify;
 }
 
 .detail-title {
-    font-size: 2rem;
+    font-size: 2em;
     margin-bottom: 10px;
 }
 
 .detail-price {
-    font-size: 1.8rem;
+    font-size: 1.8em;
     font-weight: bold;
     color: #2c3e50;
     margin-bottom: 20px;
 }
 
 .detail-desc {
-    font-size: 1.1rem;
+    font-size: 1.1em;
     color: #555;
     margin-bottom: 30px;
-    line-height: 1.6;
 }
 
 .add-to-cart-form {
@@ -154,10 +145,4 @@
 
 .detail-btn {
     margin-top: 20px;
-}
-
-@media(max-width: 768px) {
-    .product-detail-container {
-        flex-direction: column;
-    }
 }
