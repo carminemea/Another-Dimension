@@ -13,7 +13,7 @@
 
     <div class="container">
         <div class="card">
-            <h1 class="text-center">Gestione Storico Ordini</h1>
+            <h1 class="text-center">Gestione Ordini</h1>
             
             <form action="${pageContext.request.contextPath}/admin/AdminOrderControl" method="get" id="filterForm">
                 
@@ -44,7 +44,7 @@
                 	<a href="${pageContext.request.contextPath}/admin/AdminOrderControl" class="btn" id="resetBtn">Reset</a>
                 </div>
             </form>
-
+			<div class="table-responsive">
             <table>
                     <tr style="background-color: #f4f4f4;">
                         <th>ID Ordine</th>
@@ -52,7 +52,7 @@
                         <th>ID Cliente</th>
                         <th>Indirizzo Spedizione</th>
                         <th>Totale</th>
-                        <th>Dettagli (Print On Demand)</th>
+                        <th>Dettagli</th>
                     </tr>
                     <c:forEach var="ordine" items="${ordini}">
                         <tr>
@@ -72,6 +72,7 @@
                         </tr>
                     </c:if>
             </table>
+            </div>
         </div>
     </div>
 </body>

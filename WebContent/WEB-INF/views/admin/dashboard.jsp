@@ -14,7 +14,7 @@
     <div class="container">
         <div class="card">
             <h1 class="text-center">Gestione Catalogo Prodotti</h1>
-
+			<div class="table-responsive">
             <table>
                     <tr style="background-color: #f4f4f4;">
                         <th>ID</th>
@@ -43,6 +43,7 @@
                         </tr>
                     </c:if>
             </table>
+            </div>
           <a href="${pageContext.request.contextPath}/admin/AdminProductControl?action=showInsertForm" class="btn" id="addBtn">+ Aggiungi Nuovo Prodotto</a>  
         </div>
     </div>

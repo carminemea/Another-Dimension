@@ -16,6 +16,10 @@ table, th, td {
 	border: 1px solid black;
 }
 
+th, td {
+	padding: 5px;
+}
+
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -30,6 +34,15 @@ td .btn{
 	width: 90%;
 	padding: 5px 10px; 
 	font-size: 14px;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table-responsive table {
+  width: 100%;
 }
 
 #deleteBtn {

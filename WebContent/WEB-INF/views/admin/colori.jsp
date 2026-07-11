@@ -33,7 +33,7 @@
                     <input type="submit" value="Salva Colore" class="btn" style="width: auto; margin: 0; margin-bottom: 2px;">
                 </form>
             </div>
-
+			<div class="table-responsive">
             <table>
                 <tr style="background-color: #000; color: #fff;">
                     <th>ID</th>
@@ -61,7 +61,7 @@
                     </tr>
                 </c:if>
             </table>
-            
+            </div>
         </div>
     </div>
 </body>

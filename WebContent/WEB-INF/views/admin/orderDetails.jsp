@@ -27,6 +27,7 @@
             </div>
 
             <h3>Articoli Acquistati</h3>
+            <div class="table-responsive">
             <table id="tabellaDettagli">
                     <tr style="background-color: #000; color: #fff;">
                         <th>Cod. Prod.</th>
@@ -47,7 +48,7 @@
                         </tr>
                     </c:forEach>
             </table>
-            
+            </div>
         </div>
     </div>
 </body>
