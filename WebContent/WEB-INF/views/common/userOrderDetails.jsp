@@ -16,12 +16,12 @@
             
             <div class="dettaglioOrdine">
                 <h2>Dettagli Ordine #${ordine.id}</h2>
-                <a href="${pageContext.request.contextPath}/admin/AdminOrderControl" class="btn" style="width: auto; margin: 0;">Torna agli Ordini</a>
+                <a href="${pageContext.request.contextPath}/UserOrderControl" class="btn" style="width: auto; margin: 0;">Torna agli Ordini</a>
             </div>
             
             <div class="orderInfo">
                 <p><strong>Data Ordine:</strong> ${ordine.data}</p>
-                <p><strong>Cliente:</strong> ${cliente.nome} ${cliente.cognome} (${cliente.email})</p>
+                <p><strong>Info:</strong> ${cliente.nome} ${cliente.cognome} (${cliente.email})</p>
                 <p><strong>Indirizzo Spedizione:</strong> ${ordine.indirizzo}</p>
                 <p><strong>Totale Pagato:</strong> € ${ordine.totale}</p>
             </div>

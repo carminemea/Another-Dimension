@@ -25,7 +25,7 @@
                     <input type="hidden" name="action" value="insert">
                     
                     <div class="form-group" style="flex-grow : 1">
-                        <label for="nome">Nome Colore:</label>
+                        <label for="nome">Nome:</label>
                         <input type="text" name="nome" id="nome" class="input-field" required>
                     </div>
                     

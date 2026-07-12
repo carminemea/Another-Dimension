@@ -23,7 +23,7 @@
             
             <h2 style="margin-bottom: 10px">I tuoi Acquisti</h2>
             <!-- TO DO -->
-            <a href="#" class="btn" style="width: auto;">Visualizza i Miei Ordini</a>
+            <a href="${pageContext.request.contextPath}/UserOrderControl?action=viewOrders" class="btn" style="width: auto;">Visualizza i Miei Ordini</a>
             
             <c:if test="${sessionScope.role == 'admin'}">
                 <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ccc;">
