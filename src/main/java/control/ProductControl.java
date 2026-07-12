@@ -67,6 +67,27 @@ public class ProductControl extends HttpServlet {
 				request.setAttribute("prodotti", prodottiDisp);
 				request.getRequestDispatcher("/WEB-INF/views/common/catalog.jsp").forward(request, response);
 			
+			} else if(action.equalsIgnoreCase("search")) {
+				String text = request.getParameter("searchQuery");
+				Collection<ProdottoBean> tuttiProdotti;
+				
+				if(text == null || text.trim().isEmpty()) 
+					tuttiProdotti = prodottoDao.doRetrieveAll("nome");
+				else
+					tuttiProdotti = prodottoDao.doRetrieveByText(text);
+				
+				List<ProdottoBean> prodottiDisp = new ArrayList<>();
+				
+				for(ProdottoBean p : tuttiProdotti) {
+					if(p.isDisponibile()) {
+						p.setImmagini((List<ImmagineBean>) immagineDao.doRetrieveByProdotto(p.getId()));
+						prodottiDisp.add(p);
+					}
+				}
+				
+				request.setAttribute("prodotti", prodottiDisp);
+				request.getRequestDispatcher("/WEB-INF/views/common/catalog.jsp").forward(request, response);
+				
 			} else if(action.equalsIgnoreCase("viewProduct")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				ProdottoBean prodotto = prodottoDao.doRetrieveByKey(id);

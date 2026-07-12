@@ -76,8 +76,50 @@ nav li:first-child {
 	display: none;
 }
 
-.welcome-name {
-	padding: 0px 5px;
+.search-form-sidebar {
+    display: flex;
+    align-items: center;
+    padding: 0px 30px;
+    height: 100%;
+}
+
+.search-form-sidebar .input-field {
+    margin-bottom: 0;
+    width: 80%;
+}
+
+.search-form-sidebar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-form-header {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0px 10px;
+}
+
+.search-form-header input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+.search-form-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media(max-width: 934px) {

@@ -15,7 +15,15 @@
 		<ul class="sidebar">
 			<li onclick=hideSidebar() ><a href="#"><img src="${pageContext.request.contextPath}/images/close.svg" alt="Close"/></a></li>
 			<li><a href="${pageContext.request.contextPath}/Home">Home</a></li>
-			<li><a href="#">Search</a></li>
+			<li class="sidebar-search">
+    			<form action="${pageContext.request.contextPath}/ProductControl" method="GET" class="search-form-sidebar">
+        			<input type="hidden" name="action" value="search">
+        			<input type="text" name="searchQuery" placeholder="Cerca..." class="input-field" style="padding: 5px 5px;">
+        			<button type="submit">
+            			<img src="${pageContext.request.contextPath}/images/search.svg" alt="Cerca" width="24" height="24">
+        			</button>
+    			</form>
+			</li>
 			<li><a href="${pageContext.request.contextPath}/ProductControl">Prodotti</a></li>
 			<li><a href="#"><img src="${pageContext.request.contextPath}/images/cart.svg" alt="Carrello"/></a></li>
 			<c:choose>
@@ -31,7 +39,15 @@
 		<ul>
 			<li><a href="${pageContext.request.contextPath}/Home" id="logoHeader"><img src="${pageContext.request.contextPath}/images/logo.svg" alt="Another Dimension" height="125%" /></a></li>
 			<li class="hide934"><a href="${pageContext.request.contextPath}/Home">Home</a></li>
-			<li class="hide934"><a href="#">Search</a></li>
+			<li class="hide934">
+    			<form action="${pageContext.request.contextPath}/ProductControl" method="GET" class="search-form-header">
+        			<input type="hidden" name="action" value="search">
+        			<input type="text" name="searchQuery" class="input-field" placeholder="Cerca...">
+        			<button type="submit">
+            			<img src="${pageContext.request.contextPath}/images/search.svg" alt="Cerca" width="24" height="24">
+        			</button>
+    			</form>
+			</li>
 			<li class="hide934"><a href="${pageContext.request.contextPath}/ProductControl">Prodotti</a></li>
 			<li class="hide934"><a href="#"><img src="${pageContext.request.contextPath}/images/cart.svg" alt="Carrello"/></a></li>
 			<c:choose>
