@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/catalog.css">
     <script>
-        // Semplice script per cambiare l'immagine principale cliccando sulle miniature
         function changeMainImage(imgUrl) {
             document.getElementById('mainProductImage').src = imgUrl;
         }
@@ -59,9 +58,9 @@
                             <label>Scegli Colore:</label>
                             <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 8px;">
                                 <c:forEach var="colore" items="${prodotto.colori}">
-                                    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 1.1rem;">
+                                    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
                                         <input type="radio" name="coloreScelto" value="${colore.nome}" required>
-                                        <span style="display: inline-block; width: 22px; height: 22px; background-color: ${colore.codiceHex}; border: 1px solid #999; border-radius: 50%;"></span>
+                                        <span class="color-span" style="background-color: ${colore.codiceHex};"></span>
                                         ${colore.nome}
                                     </label>
                                 </c:forEach>
@@ -70,9 +69,9 @@
                     </c:if>
 
                     <c:if test="${prodotto.testoPersonalizzabile}">
-                        <div class="form-group">
+                        <div class="form-group" style="text-align: left">
                             <label for="testoPersonalizzato">Testo Personalizzato:</label>
-                            <input type="text" name="testoPersonalizzato" id="testoPersonalizzato" class="input-field" placeholder="Es. Il tuo nome (max 20 car.)" maxlength="20">
+                            <input type="text" name="testoPersonalizzato" id="testoPersonalizzato" class="input-field" placeholder="Max 20 caratteri" maxlength="20">
                         </div>
                     </c:if>
 

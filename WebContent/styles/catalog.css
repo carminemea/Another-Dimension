@@ -146,3 +146,11 @@
 .detail-btn {
     margin-top: 20px;
 }
+
+.color-span {
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	border: 1px solid #999;
+	border-radius: 50%;
+}
