@@ -200,5 +200,34 @@ public class ProdottoDaoImpl implements ProdottoDao {
 				connection.close();
 			}
 		}
+		
+	}
+
+	@Override
+	public Collection<ProdottoBean> doRetrieveByText(String text) throws SQLException {
+		String selectSQL = "SELECT * FROM prodotto WHERE nome LIKE ? OR descrizione LIKE ?";
+		Collection<ProdottoBean> prodotti = new ArrayList<>();
+		
+		try(Connection connection = ds.getConnection();
+				PreparedStatement ps = connection.prepareStatement(selectSQL)) {
+			String ricerca = "%" + text + "%";
+			ps.setString(1, ricerca);
+			ps.setString(2, ricerca);
+			
+			try(ResultSet rs = ps.executeQuery()) {
+				while(rs.next()) {
+					ProdottoBean prodotto = new ProdottoBean();
+					prodotto.setId(rs.getInt("id"));
+	                prodotto.setNome(rs.getString("nome"));
+	                prodotto.setDescrizione(rs.getString("descrizione"));
+	                prodotto.setPrezzo(rs.getDouble("prezzo"));
+	                prodotto.setDisponibile(rs.getBoolean("disponibile"));
+	                prodotto.setTestoPersonalizzabile(rs.getBoolean("testoPersonalizzabile"));
+	                
+	                prodotti.add(prodotto);
+				}
+			}
+		}
+		return prodotti;
 	}
 }

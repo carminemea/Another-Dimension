@@ -16,4 +16,6 @@ public interface ProdottoDao {
 	
 	public void doUpdate(ProdottoBean prodotto) throws SQLException;
 	
+	public Collection<ProdottoBean> doRetrieveByText(String text) throws SQLException;
+	
 }
