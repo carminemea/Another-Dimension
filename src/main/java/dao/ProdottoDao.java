@@ -10,6 +10,8 @@ public interface ProdottoDao {
 
 	public boolean doDelete(int id) throws SQLException;
 	
+	public boolean doSetAvailable(int id) throws SQLException;
+	
 	public ProdottoBean doRetrieveByKey(int id) throws SQLException;
 	
 	public Collection<ProdottoBean> doRetrieveAll(String order) throws SQLException;

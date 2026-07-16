@@ -92,6 +92,10 @@ public class AdminProductControl extends HttpServlet {
 				int id = Integer.parseInt(request.getParameter("id"));
 				prodottoDao.doDelete(id);
 				response.sendRedirect(request.getContextPath() + "/admin/AdminProductControl?action=viewCatalog");
+			} else if(action.equalsIgnoreCase("setAvailable")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				prodottoDao.doSetAvailable(id);
+				response.sendRedirect(request.getContextPath() + "/admin/AdminProductControl?action=viewCatalog");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

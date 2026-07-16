@@ -50,6 +50,11 @@ td .btn{
 	margin-bottom: 10px;
 }
 
+#availableBtn {
+	background-color: #8B8FD0;
+	margin-bottom: 10px;
+}
+
 #deleteBtn:hover {
 	background-color: rgba(243, 117, 130, 1);
 }

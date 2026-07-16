@@ -91,6 +91,20 @@ public class ProdottoDaoImpl implements ProdottoDao {
 		}
 		return (result != 0);
 	}
+	
+	@Override
+	public boolean doSetAvailable(int id) throws SQLException {
+		String updateSQL = "UPDATE prodotto SET disponibile = true WHERE id = ?";
+		int result = 0;
+		
+		try (Connection connection = ds.getConnection();
+			 PreparedStatement ps = connection.prepareStatement(updateSQL)) {
+			
+			ps.setInt(1, id);
+			ps.executeUpdate();
+		}
+		return (result != 0);
+	}
 
 	@Override
 	public synchronized ProdottoBean doRetrieveByKey(int id) throws SQLException {

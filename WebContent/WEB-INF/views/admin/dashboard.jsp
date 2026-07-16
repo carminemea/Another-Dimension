@@ -37,8 +37,15 @@
                             <td>€ ${prodotto.prezzo}</td>
                             <td>${prodotto.disponibile ? 'Sì' : 'No'}</td>
                             <td>
+                            <c:choose>
+                            	<c:when test="${prodotto.disponibile}">
+	                                <a href="${pageContext.request.contextPath}/admin/AdminProductControl?action=delete&id=${prodotto.id}" class="btn" id="deleteBtn">Elimina</a>
+                            	</c:when>
+                            	<c:otherwise>
+                            		<a href="${pageContext.request.contextPath}/admin/AdminProductControl?action=setAvailable&id=${prodotto.id}" class="btn" id="availableBtn">Rendi Disponibile</a>
+                            	</c:otherwise>
+                            </c:choose>
                                 <a href="${pageContext.request.contextPath}/admin/AdminProductControl?action=showUpdateForm&id=${prodotto.id}" class="btn">Modifica</a>
-                                <a href="${pageContext.request.contextPath}/admin/AdminProductControl?action=delete&id=${prodotto.id}" class="btn" id="deleteBtn">Elimina</a>
                             </td>
                         </tr>
                     </c:forEach>
