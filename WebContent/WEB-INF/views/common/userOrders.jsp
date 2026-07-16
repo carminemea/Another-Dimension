@@ -28,7 +28,6 @@
                         <tr>
                             <td>#${ordine.id}</td>
                             <td>${ordine.data}</td>
-                            <td>${ordine.idUtente}</td>
                             <td>${ordine.indirizzo}</td>
                             <td>€ ${ordine.totale}</td>
                             <td>
