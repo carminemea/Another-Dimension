@@ -69,7 +69,7 @@ public class CartBean implements Serializable {
 			total += p.getPrezzoAcquisto()*p.getQuantita();
 		}
 		
-		return total;
+		return Math.round(total * 100.0) / 100.0;
 	}
 	
 	public void clearCart() {
