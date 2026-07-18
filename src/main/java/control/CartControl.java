@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -90,8 +91,8 @@ public class CartControl extends HttpServlet {
                 
                 ComposizioneOrdineBean comp = new ComposizioneOrdineBean();
                 comp.setIdProdotto(idProdotto);
-                if (colore != null && !colore.trim().isEmpty()) comp.setColoreScelto(colore);
-                if (testoPersonalizzato != null && !testoPersonalizzato.trim().isEmpty()) comp.setTestoPersonalizzato(testoPersonalizzato);
+                if (colore != null && !colore.trim().isEmpty() && !colore.equals("null")) comp.setColoreScelto(colore);
+                if (testoPersonalizzato != null && !testoPersonalizzato.trim().isEmpty() && !testoPersonalizzato.equals("null")) comp.setTestoPersonalizzato(testoPersonalizzato);
                 
                 if(action.equalsIgnoreCase("add")) {
                     int quantita = Integer.parseInt(request.getParameter("quantita"));
@@ -101,6 +102,10 @@ public class CartControl extends HttpServlet {
                         comp.setPrezzoAcquisto(prodotto.getPrezzo());
                         cart.addProduct(comp);
                     }
+                    //per 'aggiungi al carrello' della pagina prduct.jsp
+                    response.sendRedirect(request.getContextPath() + "/ProductControl?action=viewProduct&id="+idProdotto);
+                    return;
+                    
                 } else if(action.equalsIgnoreCase("increase")) {
                     cart.increaseQuantity(comp);
                 } else if(action.equalsIgnoreCase("decrease")) {
@@ -109,11 +114,32 @@ public class CartControl extends HttpServlet {
                     cart.deleteProduct(comp);
                 }
                 
-                response.sendRedirect(request.getContextPath() + "/CartControl?action=showCart");
+                int nuovaQuantita = 0;
+                for (ComposizioneOrdineBean p : cart.getProdotti()) {
+                    boolean stessoId = p.getIdProdotto() == idProdotto;
+                    boolean stessoColore = (p.getColoreScelto() == null) ? comp.getColoreScelto() == null : p.getColoreScelto().equals(comp.getColoreScelto());
+                    boolean stessoTesto = (p.getTestoPersonalizzato() == null) ? comp.getTestoPersonalizzato() == null : p.getTestoPersonalizzato().equals(comp.getTestoPersonalizzato());
+                    
+                    if (stessoId && stessoColore && stessoTesto) {
+                        nuovaQuantita = p.getQuantita();
+                        break;
+                    }
+                }
+                
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                PrintWriter out = response.getWriter();
+                
+                org.json.JSONObject json = new org.json.JSONObject();
+                json.put("nuovaQuantita", nuovaQuantita);
+                json.put("totaleCarrello", cart.getTotalPrice());
+                json.put("carrelloVuoto", cart.getProdotti().isEmpty());
+                
+                out.print(json.toString());
                 
             } catch (SQLException | NumberFormatException e) {
                 e.printStackTrace();
-                response.sendRedirect(request.getContextPath() + "/CartControl?action=showCart");
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
         }
     }

@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Carrello - Another Dimension</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
+    <script src="${pageContext.request.contextPath}/scripts/cartAjax.js"></script>
 </head>
 <body>
 
@@ -55,41 +56,23 @@
                                 </div>
                                 
                                 <div class="cart-item-actions">
-                                    <div class="quantity-controls">
-                                        <form class="ajax-cart-form" action="${pageContext.request.contextPath}/CartControl" method="POST">
-                                            <input type="hidden" name="action" value="decrease">
-                                            <input type="hidden" name="idProdotto" value="${item.idProdotto}">
-                                            <input type="hidden" name="coloreScelto" value="${item.coloreScelto}">
-                                            <input type="hidden" name="testoPersonalizzato" value="${item.testoPersonalizzato}">
-                                            <button type="submit" class="btn-qty">-</button>
-                                        </form>
-                                        
-                                        <span class="item-quantity">${item.quantita}</span>
-                                        
-                                        <form class="ajax-cart-form" action="${pageContext.request.contextPath}/CartControl" method="POST">
-                                            <input type="hidden" name="action" value="increase">
-                                            <input type="hidden" name="idProdotto" value="${item.idProdotto}">
-                                            <input type="hidden" name="coloreScelto" value="${item.coloreScelto}">
-                                            <input type="hidden" name="testoPersonalizzato" value="${item.testoPersonalizzato}">
-                                            <button type="submit" class="btn-qty">+</button>
-                                        </form>
-                                    </div>
-                                    
-                                    <form class="ajax-cart-form" action="${pageContext.request.contextPath}/CartControl" method="POST">
-                                        <input type="hidden" name="action" value="delete">
-                                        <input type="hidden" name="idProdotto" value="${item.idProdotto}">
-                                        <input type="hidden" name="coloreScelto" value="${item.coloreScelto}">
-                                        <input type="hidden" name="testoPersonalizzato" value="${item.testoPersonalizzato}">
-                                        <button type="submit" class="btn-remove">Rimuovi</button>
-                                    </form>
-                                </div>
+    								<div class="quantity-controls">
+        								<button type="button" class="btn-qty" onclick="aggiornaCarrello(this, 'decrease', '${item.idProdotto}', '${item.coloreScelto}', '${item.testoPersonalizzato}')">-</button>
+        
+        								<span class="item-quantity">${item.quantita}</span>
+        
+        								<button type="button" class="btn-qty" onclick="aggiornaCarrello(this, 'increase', '${item.idProdotto}', '${item.coloreScelto}', '${item.testoPersonalizzato}')">+</button>
+    								</div>
+    
+    								<button type="button" class="btn-remove" onclick="aggiornaCarrello(this, 'delete', '${item.idProdotto}', '${item.coloreScelto}', '${item.testoPersonalizzato}')">Rimuovi</button>
+								</div>
                             </div>
                         </c:forEach>
                         
                     </div>
                     
                     <div class="cart-summary">
-                        <h3>Totale: <span class="cart-total-price">€ ${sessionScope.carrello.totalPrice}</span></h3>
+                        <h3>Totale: <span class="cart-total-price" id="cart-total-price">€ ${sessionScope.carrello.totalPrice}</span></h3>
                         
                         <div class="checkout-section">
                             <c:choose>
