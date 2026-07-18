@@ -25,7 +25,7 @@
     			</form>
 			</li>
 			<li><a href="${pageContext.request.contextPath}/ProductControl">Prodotti</a></li>
-			<li><a href="#"><img src="${pageContext.request.contextPath}/images/cart.svg" alt="Carrello"/></a></li>
+			<li><a href="${pageContext.request.contextPath}/CartControl?action=showCart"><img src="${pageContext.request.contextPath}/images/cart.svg" alt="Carrello"/></a></li>
 			<c:choose>
 				<c:when test="${empty sessionScope.utente}">
 					<li><a href="${pageContext.request.contextPath}/AuthControl?action=redirectLogin"><img src="${pageContext.request.contextPath}/images/account.svg" alt="Account"/></a></li>
@@ -49,7 +49,7 @@
     			</form>
 			</li>
 			<li class="hide934"><a href="${pageContext.request.contextPath}/ProductControl">Prodotti</a></li>
-			<li class="hide934"><a href="#"><img src="${pageContext.request.contextPath}/images/cart.svg" alt="Carrello"/></a></li>
+			<li class="hide934"><a href="${pageContext.request.contextPath}/CartControl?action=showCart"><img src="${pageContext.request.contextPath}/images/cart.svg" alt="Carrello"/></a></li>
 			<c:choose>
 				<c:when test="${empty sessionScope.utente }">
 					<li class="hide934"><a href="${pageContext.request.contextPath}/AuthControl?action=redirectLogin"><img src="${pageContext.request.contextPath}/images/account.svg" alt="Account"/></a></li>

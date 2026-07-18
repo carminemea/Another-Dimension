@@ -60,7 +60,7 @@ public class AdminOrderControl extends HttpServlet {
 				request.setAttribute("ordini", ordini);
 				request.setAttribute("utenti", utenti);
 
-				// Rimettiamo i parametri nella request per mantenere i campi del form popolati
+				// per mantenere i from popolati
 				request.setAttribute("paramStartDate", startDate);
 				request.setAttribute("paramEndDate", endDate);
 				request.setAttribute("paramUtenteId", utenteId);
@@ -75,7 +75,6 @@ public class AdminOrderControl extends HttpServlet {
 				if (ordine != null) {
 					UtenteBean cliente = utenteDao.doRetrieveByKey(ordine.getIdUtente());
 					
-					//Recupero i nomi dei Prodotti (usiamo una Map per comodità nella JSP)
 					Map<Integer, ProdottoBean> prodottiMap = new HashMap<>();
 					for (ComposizioneOrdineBean comp : ordine.getComposizioni()) {
 						if (!prodottiMap.containsKey(comp.getIdProdotto())) {
