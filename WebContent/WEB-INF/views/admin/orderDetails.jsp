@@ -4,7 +4,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Dettagli Ordine #${ordine.id} - Admin</title>
+    <title>Dettagli Ordine #${ordine.id} - Another Dimension</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/admin.css">
 </head>

@@ -4,7 +4,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Aggiungi Prodotto - Admin</title>
+    <title>Aggiungi Prodotto - Another Dimension</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/validate.js"></script>
 </head>
