@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -14,7 +15,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import dao.ImmagineDao;
+import dao.ImmagineDaoImpl;
 import dao.OrdineDao;
 import dao.OrdineDaoImpl;
 import dao.ProdottoDao;
@@ -22,6 +24,7 @@ import dao.ProdottoDaoImpl;
 import dao.UtenteDao;
 import dao.UtenteDaoImpl;
 import model.ComposizioneOrdineBean;
+import model.ImmagineBean;
 import model.OrdineBean;
 import model.ProdottoBean;
 import model.UtenteBean;
@@ -33,6 +36,7 @@ public class UserOrderControl extends HttpServlet {
 	private OrdineDao ordineDao;
 	private UtenteDao utenteDao;
 	private ProdottoDao prodottoDao;
+	private ImmagineDao immagineDao;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -43,6 +47,7 @@ public class UserOrderControl extends HttpServlet {
 		ordineDao = new OrdineDaoImpl(ds);
 		utenteDao = new UtenteDaoImpl(ds);
 		prodottoDao = new ProdottoDaoImpl(ds);
+		immagineDao = new ImmagineDaoImpl(ds);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -71,7 +76,10 @@ public class UserOrderControl extends HttpServlet {
 					Map<Integer, ProdottoBean> prodottiMap = new HashMap<>();
 					for (ComposizioneOrdineBean comp : ordine.getComposizioni()) {
 						if (!prodottiMap.containsKey(comp.getIdProdotto())) {
-							prodottiMap.put(comp.getIdProdotto(), prodottoDao.doRetrieveByKey(comp.getIdProdotto()));
+							ProdottoBean prodotto = prodottoDao.doRetrieveByKey(comp.getIdProdotto());
+							List<ImmagineBean> immagini = (List<ImmagineBean>) immagineDao.doRetrieveByProdotto(prodotto.getId());
+							prodotto.setImmagini(immagini);
+							prodottiMap.put(comp.getIdProdotto(), prodotto);
 						}
 					}
 					

@@ -4,7 +4,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Dettagli Ordine #${ordine.id} - Admin</title>
+    <title>Dettagli Ordine #${ordine.id}</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/admin.css">
 </head>
@@ -30,7 +30,7 @@
             <div class="table-responsive">
             <table id="tabellaDettagli">
                     <tr style="background-color: #000; color: #fff;">
-                        <th>Cod. Prod.</th>
+                        <th>Immagine</th>
                         <th>Nome Prodotto</th>
                         <th>Quantità</th>
                         <th>Prezzo Cad.</th>
@@ -39,7 +39,7 @@
                     </tr>
                     <c:forEach var="item" items="${ordine.composizioni}">
                         <tr>
-                            <td>${item.idProdotto}</td>
+                            <td><img src="${pageContext.request.contextPath}/ImageControl?action=show&id=${prodottiMap[item.idProdotto].immagini[0].id}" alt="img" class="product-thumbnail"></td>
                             <td>${prodottiMap[item.idProdotto].nome}</td>
                             <td>${item.quantita}</td>
                             <td>€ ${item.prezzoAcquisto}</td>
