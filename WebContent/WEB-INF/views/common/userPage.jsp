@@ -15,9 +15,9 @@
         <h1 style="margin-bottom: 20px">Il tuo Account</h1>
         <div class="card">
             <h2 style="margin-bottom: 10px">Dati Personali</h2>
-            <p>Nome: <b>${sessionScope.utente.nome} ${sessionScope.utente.cognome}</b></p>
-            <p>Email: <b>${sessionScope.utente.email}</b></p>
-            <p>Tipo Account: <b>${sessionScope.role}</b></p>
+            <p>Nome: <b><c:out value="${sessionScope.utente.nome}" /> <c:out value="${sessionScope.utente.cognome}" /></b></p>
+            <p>Email: <b><c:out value="${sessionScope.utente.email}" /></b></p>
+            <p>Tipo Account: <b><c:out value="${sessionScope.role}" /></b></p>
             
             <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ccc;">
             

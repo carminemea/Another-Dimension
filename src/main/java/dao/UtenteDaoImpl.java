@@ -131,8 +131,10 @@ public class UtenteDaoImpl implements UtenteDao {
 		String retrieveAllSQL = "SELECT * FROM utente";
 		
 		if (order != null && !order.isEmpty()) {
-	        retrieveAllSQL += " ORDER BY " + order;
-	    }
+			if (order.equals("id") || order.equals("nome") || order.equals("cognome") || order.equals("email") || order.equals("ruolo")) {
+				retrieveAllSQL += " ORDER BY " + order;
+			}
+		}
 		
 		try(Connection c = ds.getConnection();
 				PreparedStatement ps = c.prepareStatement(retrieveAllSQL);

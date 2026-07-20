@@ -90,7 +90,7 @@
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label for="cartaCredito">Numero Carta di Credito (fittizio):</label>
+                                                <label for="cartaCredito">Numero Carta di Credito:</label>
                                                 <input type="text" name="cartaCredito" id="cartaCredito" class="input-field" required pattern="^\d{16}$" maxlength="16" placeholder="Es. 1234567812345678"
                                                        onchange="validateFormElem(this, document.getElementById('errorCarta'), 'Inserire esattamente 16 cifre valide')">
                                                 <span id="errorCarta" class="error-msg"></span>
