@@ -272,6 +272,15 @@ textarea {
     width: auto;
 }
 
+.checkout-form-container {
+	margin-top: 20px;
+	text-align: left;
+	padding: 15px;
+	border: 1px solid #eee;
+	border-radius: 10px;
+	background-color: #fdfdfd;
+}
+
 @media(max-width: 600px) {
     .cart-item {
         flex-direction: column;

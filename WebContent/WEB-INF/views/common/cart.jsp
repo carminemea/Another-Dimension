@@ -7,6 +7,7 @@
     <title>Carrello - Another Dimension</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
     <script src="${pageContext.request.contextPath}/scripts/cartAjax.js"></script>
+    <script src="${pageContext.request.contextPath}/scripts/validate.js"></script>
 </head>
 <body>
 
@@ -77,7 +78,27 @@
                         <div class="checkout-section">
                             <c:choose>
                                 <c:when test="${not empty sessionScope.utente}">
-                                    <a href="${pageContext.request.contextPath}/CheckoutControl" class="btn btn-checkout">Procedi all'Acquisto</a>
+                                    <div class="checkout-form-container">
+                                        <h3 style="margin-bottom: 15px;">Dettagli Spedizione e Pagamento</h3>
+                                        
+                                        <form action="${pageContext.request.contextPath}/CheckoutControl" method="POST" id="checkoutForm" onsubmit="return validateCheckout()" novalidate>
+                                            <div class="form-group">
+                                                <label for="indirizzo">Indirizzo di Spedizione:</label>
+                                                <input type="text" name="indirizzo" id="indirizzo" class="input-field" required 
+                                                       onchange="validateFormElem(this, document.getElementById('errorIndirizzo'), emptyFieldErrorMessage)">
+                                                <span id="errorIndirizzo" class="error-msg"></span>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="cartaCredito">Numero Carta di Credito (fittizio):</label>
+                                                <input type="text" name="cartaCredito" id="cartaCredito" class="input-field" required pattern="^\d{16}$" maxlength="16" placeholder="Es. 1234567812345678"
+                                                       onchange="validateFormElem(this, document.getElementById('errorCarta'), 'Inserire esattamente 16 cifre valide')">
+                                                <span id="errorCarta" class="error-msg"></span>
+                                            </div>
+                                            
+                                            <button type="submit" class="btn btn-checkout">Conferma Ordine e Paga</button>
+                                        </form>
+                                    </div>
                                 </c:when>
                                 <c:otherwise>
                                     <p class="login-prompt">Devi essere registrato per completare l'ordine.</p>

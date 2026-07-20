@@ -124,3 +124,22 @@ function validateProduct() {
     
     return valid;
 }
+
+/* checkout */
+
+function validateCheckout() {
+    let valid = true;
+    let form = document.getElementById("checkoutForm");
+
+    let spanIndirizzo = document.getElementById("errorIndirizzo");
+    if (!validateFormElem(form.indirizzo, spanIndirizzo, emptyFieldErrorMessage)) {
+        valid = false;
+    }
+
+    let spanCarta = document.getElementById("errorCarta");
+    if (!validateFormElem(form.cartaCredito, spanCarta, "Inserire esattamente 16 cifre valide")) {
+        valid = false;
+    }
+
+    return valid;
+}
