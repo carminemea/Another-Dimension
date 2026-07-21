@@ -106,7 +106,12 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
-    padding: 5px;
+    padding: 3px;
+    margin-bottom: 13px;
+}
+
+.thumb:hover {
+	border-color: black;
 }
 
 .product-details {
