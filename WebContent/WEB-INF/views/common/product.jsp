@@ -71,7 +71,7 @@
                     <c:if test="${prodotto.testoPersonalizzabile}">
                         <div class="form-group" style="text-align: left">
                             <label for="testoPersonalizzato">Testo Personalizzato:</label>
-                            <input type="text" name="testoPersonalizzato" id="testoPersonalizzato" class="input-field" placeholder="Max 20 caratteri" maxlength="20">
+                            <input type="text" name="testoPersonalizzato" id="testoPersonalizzato" class="input-field" placeholder="Max 20 caratteri" maxlength="20" required>
                         </div>
                     </c:if>
 

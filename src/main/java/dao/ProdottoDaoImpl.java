@@ -61,17 +61,17 @@ public class ProdottoDaoImpl implements ProdottoDao {
 				}
 			}
 			
-			// reimposto
+			// invio
 			connection.commit(); 
 			
 		} catch (SQLException e) {
 			if (connection != null) {
-				connection.rollback(); // In caso di errore, annulliamo tutto
+				connection.rollback();
 			}
 			throw e;
 		} finally {
 			if (connection != null) {
-				connection.setAutoCommit(true); // Ripristiniamo il comportamento di default
+				connection.setAutoCommit(true); // reimpsto autocommit
 				connection.close();
 			}
 		}

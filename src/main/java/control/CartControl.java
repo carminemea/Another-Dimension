@@ -102,7 +102,7 @@ public class CartControl extends HttpServlet {
                         comp.setPrezzoAcquisto(prodotto.getPrezzo());
                         cart.addProduct(comp);
                     }
-                    //per 'aggiungi al carrello' della pagina prduct.jsp
+                    //per 'aggiungi al carrello' della pagina product.jsp
                     response.sendRedirect(request.getContextPath() + "/ProductControl?action=viewProduct&id="+idProdotto);
                     return;
                     

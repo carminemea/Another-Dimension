@@ -72,7 +72,6 @@ public class UserOrderControl extends HttpServlet {
 				if (ordine != null) {
 					UtenteBean cliente = utenteDao.doRetrieveByKey(ordine.getIdUtente());
 					
-					//Recupero i nomi dei Prodotti (usiamo una Map per comodità nella JSP)
 					Map<Integer, ProdottoBean> prodottiMap = new HashMap<>();
 					for (ComposizioneOrdineBean comp : ordine.getComposizioni()) {
 						if (!prodottiMap.containsKey(comp.getIdProdotto())) {
