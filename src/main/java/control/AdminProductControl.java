@@ -132,25 +132,42 @@ public class AdminProductControl extends HttpServlet {
 				
 				prodottoDao.doSave(prodotto); 
 				
+				Part copertinaPart = request.getPart("copertina");
+				if (copertinaPart != null && copertinaPart.getSize() > 0) {
+					String originalFileName = copertinaPart.getSubmittedFileName();
+					if (originalFileName != null && !originalFileName.isEmpty()) {
+						String mimeType = copertinaPart.getContentType();
+						String uniqueFileName = buildUniqueFileName(copertinaPart);
+						String uploadPath = getServletContext().getRealPath(File.separator + UPLOAD_DIR + File.separator + uniqueFileName);
+						
+						ImmagineBean immagine = new ImmagineBean();
+						immagine.setIdProdotto(prodotto.getId()); 
+						immagine.setMimeType(mimeType);
+						immagine.setPath(uploadPath);
+						
+						copertinaPart.write(uploadPath);
+						immagineDao.doSave(immagine);
+					}
+				}
+
 				for (Part part : request.getParts()) {
-                    if (part.getName().equals("immagini") && part.getSize() > 0) {
-                        String originalFileName = part.getSubmittedFileName();
-                        if (originalFileName != null && !originalFileName.isEmpty()) {
-                            
-                            String mimeType = part.getContentType();
-                            String uniqueFileName = buildUniqueFileName(part);
-                            String uploadPath = getServletContext().getRealPath(File.separator + UPLOAD_DIR + File.separator + uniqueFileName);
-                            
-                            ImmagineBean immagine = new ImmagineBean();
-                            immagine.setIdProdotto(prodotto.getId()); 
-                            immagine.setMimeType(mimeType);
-                            immagine.setPath(uploadPath);
-                            
-                            part.write(uploadPath);
-                            immagineDao.doSave(immagine);
-                        }
-                    }
-                }
+					if (part.getName().equals("immagini") && part.getSize() > 0) {
+						String originalFileName = part.getSubmittedFileName();
+						if (originalFileName != null && !originalFileName.isEmpty()) {
+							String mimeType = part.getContentType();
+							String uniqueFileName = buildUniqueFileName(part);
+							String uploadPath = getServletContext().getRealPath(File.separator + UPLOAD_DIR + File.separator + uniqueFileName);
+							
+							ImmagineBean immagine = new ImmagineBean();
+							immagine.setIdProdotto(prodotto.getId()); 
+							immagine.setMimeType(mimeType);
+							immagine.setPath(uploadPath);
+							
+							part.write(uploadPath);
+							immagineDao.doSave(immagine);
+						}
+					}
+				}
 				
 				response.sendRedirect(request.getContextPath() + "/admin/AdminProductControl?action=viewCatalog");
 				

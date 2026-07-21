@@ -116,10 +116,10 @@ function validateProduct() {
     if(!validateFormElem(form.prezzo, spanPrezzo, priceErrorMessage)){
         valid = false;
     }
-    
-	let spanImmagine = document.getElementById("errorImmagine");
-	if(!validateFormElem(form.immagini, spanImmagine, emptyFieldErrorMessage)){
-	       valid = false;
+	
+	let spanCopertina = document.getElementById("errorCopertina");
+	if(!validateFormElem(form.copertina, spanCopertina, emptyFieldErrorMessage)){
+           valid = false;
     }
     
     return valid;

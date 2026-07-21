@@ -68,11 +68,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="immagini">Immagini Prodotto:</label>
-                    <input type="file" name="immagini" id="immagini" class="input-field" accept="image/png, image/jpeg" required multiple
-                    onchange="validateFormElem(this, document.getElementById('errorImmagine'), emptyFieldErrorMessage)">
-                    <span id="errorImmagine" class="error-msg"></span>
-                </div>
+    				<label for="copertina">Immagine di Copertina:</label>
+    				<input type="file" name="copertina" id="copertina" class="input-field" accept="image/png, image/jpeg" required
+    					onchange="validateFormElem(this, document.getElementById('errorCopertina'), emptyFieldErrorMessage)">
+    				<span id="errorCopertina" class="error-msg"></span>
+				</div>
+
+				<div class="form-group">
+    				<label for="immagini">Immagini Galleria:</label>
+    				<input type="file" name="immagini" id="immagini" class="input-field" accept="image/png, image/jpeg" multiple>
+				</div>
                 
                 <input type="submit" value="Aggiungi Prodotto" class="btn">
             </form>

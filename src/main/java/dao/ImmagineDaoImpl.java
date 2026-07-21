@@ -52,7 +52,7 @@ public class ImmagineDaoImpl implements ImmagineDao {
 	@Override
 	public synchronized Collection<ImmagineBean> doRetrieveByProdotto(int idProdotto) throws SQLException {
 		List<ImmagineBean> immagini = new ArrayList<>();
-		String selectSQL = "SELECT * FROM immagine WHERE idProdotto = ?";
+		String selectSQL = "SELECT * FROM immagine WHERE idProdotto = ? ORDER BY id ASC";
 		
 		try (Connection connection = ds.getConnection();
 			 PreparedStatement ps = connection.prepareStatement(selectSQL)) {
