@@ -101,6 +101,23 @@ textarea {
   font-family: inherit;
 }
 
+.footerLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer{
+	background-color: #333333;
+    color: white;
+    text-align: center;
+    font-size: 75%;
+    padding-bottom: 30px;
+}
+.footer-text{
+	color: #cccccc;
+}
+
 /* --- Carrello --- */
 
 .cart-card {
